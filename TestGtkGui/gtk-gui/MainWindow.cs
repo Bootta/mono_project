@@ -212,10 +212,6 @@ public partial class MainWindow
 	private global::Gtk.Label pgSchritt2;
 	
 	private global::Gtk.Label pgSchritt3;
-	
-	private global::Gtk.Statusbar txtRubrik;
-	
-	private global::Gtk.Fixed fixed11;
 
 	protected virtual void Build ()
 	{
@@ -230,11 +226,9 @@ public partial class MainWindow
 		// Container child MainWindow.Gtk.Container+ContainerChild
 		this.vbox4 = new global::Gtk.VBox ();
 		this.vbox4.Name = "vbox4";
-		this.vbox4.Spacing = 0;
 		// Container child vbox4.Gtk.Box+BoxChild
 		this.hbox3 = new global::Gtk.HBox ();
 		this.hbox3.Name = "hbox3";
-		this.hbox3.Spacing = 0;
 		// Container child hbox3.Gtk.Box+BoxChild
 		this.imgLogo = new global::Gtk.Image ();
 		this.imgLogo.Name = "imgLogo";
@@ -247,11 +241,9 @@ public partial class MainWindow
 		// Container child hbox3.Gtk.Box+BoxChild
 		this.hbox4 = new global::Gtk.HBox ();
 		this.hbox4.Name = "hbox4";
-		this.hbox4.Spacing = 0;
 		// Container child hbox4.Gtk.Box+BoxChild
 		this.vbox2 = new global::Gtk.VBox ();
 		this.vbox2.Name = "vbox2";
-		this.vbox2.Spacing = 0;
 		// Container child vbox2.Gtk.Box+BoxChild
 		this.fixed10 = new global::Gtk.Fixed ();
 		this.fixed10.HeightRequest = 37;
@@ -265,18 +257,15 @@ public partial class MainWindow
 		// Container child vbox2.Gtk.Box+BoxChild
 		this.hbox24 = new global::Gtk.HBox ();
 		this.hbox24.Name = "hbox24";
-		this.hbox24.Spacing = 0;
 		// Container child hbox24.Gtk.Box+BoxChild
 		this.hbox25 = new global::Gtk.HBox ();
 		this.hbox25.Name = "hbox25";
-		this.hbox25.Spacing = 0;
 		this.hbox24.Add (this.hbox25);
 		global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox24 [this.hbox25]));
 		w3.Position = 0;
 		// Container child hbox24.Gtk.Box+BoxChild
 		this.hbox26 = new global::Gtk.HBox ();
 		this.hbox26.Name = "hbox26";
-		this.hbox26.Spacing = 0;
 		this.hbox24.Add (this.hbox26);
 		global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox24 [this.hbox26]));
 		w4.Position = 1;
@@ -1182,33 +1171,15 @@ public partial class MainWindow
 		this.vbox5.Add (this.notebook2);
 		global::Gtk.Box.BoxChild w106 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.notebook2]));
 		w106.Position = 0;
-		// Container child vbox5.Gtk.Box+BoxChild
-		this.txtRubrik = new global::Gtk.Statusbar ();
-		this.txtRubrik.Name = "statusbar2";
-		this.txtRubrik.Spacing = 6;
-		this.vbox5.Add (this.txtRubrik);
-		global::Gtk.Box.BoxChild w107 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.txtRubrik]));
-		w107.Position = 1;
-		w107.Expand = false;
-		w107.Fill = false;
-		// Container child vbox5.Gtk.Box+BoxChild
-		this.fixed11 = new global::Gtk.Fixed ();
-		this.fixed11.Name = "fixed11";
-		this.fixed11.HasWindow = false;
-		this.vbox5.Add (this.fixed11);
-		global::Gtk.Box.BoxChild w108 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.fixed11]));
-		w108.Position = 2;
-		w108.Expand = false;
-		w108.Fill = false;
 		this.vbox4.Add (this.vbox5);
-		global::Gtk.Box.BoxChild w109 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.vbox5]));
-		w109.Position = 1;
+		global::Gtk.Box.BoxChild w107 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.vbox5]));
+		w107.Position = 1;
 		this.Add (this.vbox4);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
-		this.DefaultWidth = 824;
-		this.DefaultHeight = 779;
+		this.DefaultWidth = 822;
+		this.DefaultHeight = 744;
 		this.calFrom.Hide ();
 		this.calTo.Hide ();
 		this.Show ();

@@ -71,9 +71,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Content Include="..\..\..\..\Desktop\Upwork\Slike\converted\run.png">
-      <DeployService-UseProjectRelativePath>True</DeployService-UseProjectRelativePath>
-    </Content>
     <Content Include="bin\Debug\images\schritt2.png">
       <DeployService-UseProjectRelativePath>True</DeployService-UseProjectRelativePath>
     </Content>

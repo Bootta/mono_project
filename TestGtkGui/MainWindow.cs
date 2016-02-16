@@ -22,19 +22,19 @@ public partial class MainWindow: Gtk.Window
 		lblEinzugsdatum.Markup="<span size='"+subtitlesFontSize+"' color='green' weight='bold'>Einzugsdatum</span>";
 		//btnPreferences.CanFocus = false;
 
-		statusbar2.Push (1, "Ready");
+		//statusbar1.Push (1, "Ready");
 		 
 		//statusbar2.PackStart(new Image("run.png"), false, false, 0); 
 		//btnForward2.Image = Image.LoadFromResource ("TestGtkGui.wg_detektiv_logo.png");
 		AnimatedButton.setButtonsDefaultBgColor(col);
 
-		AnimatedButton btnSchritt1Animated = new AnimatedButton (new Gdk.Pixbuf("images\\schritt2.png"),new Gdk.Pixbuf("images\\schritt2.png"),new Gdk.Pixbuf("images\\schritt2.png"));
-		AnimatedButton btnSchritt2Animated = new AnimatedButton (new Gdk.Pixbuf("images\\schritt2.png"),new Gdk.Pixbuf("images\\schritt2.png"),new Gdk.Pixbuf("images\\schritt2.png"));
-		AnimatedButton btnSchritt3Animated = new AnimatedButton (new Gdk.Pixbuf("images\\schritt2.png"),new Gdk.Pixbuf("images\\schritt2.png"),new Gdk.Pixbuf("images\\schritt2.png"));
+		AnimatedButton btnSchritt1Animated = new AnimatedButton (new Gdk.Pixbuf("images\\schritt1notactive.png"),new Gdk.Pixbuf("images\\schritt2.png"),new Gdk.Pixbuf("images\\schritt2.png"));
+		AnimatedButton btnSchritt2Animated = new AnimatedButton (new Gdk.Pixbuf("images\\schritt2normal.png"),new Gdk.Pixbuf("images\\schritt2notactive.png"),new Gdk.Pixbuf("images\\schritt2.png"));
+		AnimatedButton btnSchritt3Animated = new AnimatedButton (new Gdk.Pixbuf("images\\schritt3notactive.png"),new Gdk.Pixbuf("images\\schritt2.png"),new Gdk.Pixbuf("images\\schritt2.png"));
 		AnimatedButton btnPreferencesAnimated = new AnimatedButton (new Gdk.Pixbuf("images\\preferences_normal.png"),new Gdk.Pixbuf("images\\preferences_hover.png"),new Gdk.Pixbuf("images\\preferences_pressed.png"));
 
 		//btnSchritt2Animated.wid
-		hbox25.PackEnd (btnSchritt1Animated);
+		hbox25.PackStart (btnSchritt1Animated);
 		hbox25.PackEnd (btnSchritt2Animated);
 		hbox26.PackStart (btnSchritt3Animated);
 		hbox26.PackEnd (btnPreferencesAnimated);
