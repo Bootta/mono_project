@@ -19,6 +19,10 @@ namespace TestGtkGui
 			defaultBgColor = defbgColor;
 		}
 
+		public void setXAlign(float xalign){
+			img.Xalign = xalign;
+		}
+
 		public AnimatedButton(Gdk.Pixbuf normal, Gdk.Pixbuf hover, Gdk.Pixbuf pressed){
 			this.AboveChild=true;
 			this.imgNormal=normal;

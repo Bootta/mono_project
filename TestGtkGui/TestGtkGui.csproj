@@ -60,6 +60,13 @@
     <EmbeddedResource Include="bin\Debug\images\arrow_right_green.png" />
     <EmbeddedResource Include="bin\Debug\images\search_button_green.png" />
     <EmbeddedResource Include="bin\Debug\images\text_calendar.png" />
+    <EmbeddedResource Include="bin\Debug\images\Schritt1normal.png" />
+    <EmbeddedResource Include="bin\Debug\images\Schritt1notactive.png" />
+    <EmbeddedResource Include="bin\Debug\images\Schritt2normal.png" />
+    <EmbeddedResource Include="..\TestGtkGui.sln" />
+    <EmbeddedResource Include="bin\Debug\images\Schritt2notactive.png" />
+    <EmbeddedResource Include="bin\Debug\images\Schritt3normal.png" />
+    <EmbeddedResource Include="bin\Debug\images\Schritt3notactive.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
