@@ -1,21 +1,25 @@
 ﻿using System;
 using Gtk;
 using TestGtkGui;
+using System.IO;
 
 public partial class MainWindow: Gtk.Window
 {
 	String subtitlesFontSize="14000";
 	String tempMaskValue="";
 	Image [] pageImages=new Image[3];
+	char pathSeparator = System.IO.Path.DirectorySeparatorChar;
 
 	public MainWindow () : base (Gtk.WindowType.Toplevel)
 	{
+		
 		//fixed13.ModifyBg (StateType.Normal, new Gdk.Color (255,255,255));
 		Build ();
+
 		pageImages [0] = imgSchritt1;
 		pageImages [1] = imgSchritt2;
 		pageImages [2] = imgSchritt3;
-		notebook2.Page = 1;
+		//notebook1age = 0;
 		//notebook2.GetNthPage (0).Hide (); //hide first page
 		//notebook2.GetNthPage (2).Hide (); //hide third page
 		//label15.Text = "Hi";
@@ -33,41 +37,114 @@ public partial class MainWindow: Gtk.Window
 		/* 
 		//add programaticly shirtt page buttons
 
-		AnimatedButton btnSchritt1Animated = new AnimatedButton (new Gdk.Pixbuf("images\\schritt1notactive.png"),new Gdk.Pixbuf("images\\schritt2.png"),new Gdk.Pixbuf("images\\schritt2.png"));
-		AnimatedButton btnSchritt2Animated = new AnimatedButton (new Gdk.Pixbuf("images\\schritt2normal.png"),new Gdk.Pixbuf("images\\schritt2notactive.png"),new Gdk.Pixbuf("images\\schritt2.png"));
-		AnimatedButton btnSchritt3Animated = new AnimatedButton (new Gdk.Pixbuf("images\\schritt3notactive.png"),new Gdk.Pixbuf("images\\schritt2.png"),new Gdk.Pixbuf("images\\schritt2.png"));
+		AnimatedButton btnSchritt1Animated = new AnimatedButton (new Gdk.Pixbuf("images/schritt1notactive.png"),new Gdk.Pixbuf("images/schritt2.png"),new Gdk.Pixbuf("images/schritt2.png"));
+		AnimatedButton btnSchritt2Animated = new AnimatedButton (new Gdk.Pixbuf("images/schritt2normal.png"),new Gdk.Pixbuf("images/schritt2notactive.png"),new Gdk.Pixbuf("images/schritt2.png"));
+		AnimatedButton btnSchritt3Animated = new AnimatedButton (new Gdk.Pixbuf("images/schritt3notactive.png"),new Gdk.Pixbuf("images/schritt2.png"),new Gdk.Pixbuf("images/schritt2.png"));
 
 		hbox25.PackStart (btnSchritt1Animated);
 		hbox25.PackEnd (btnSchritt2Animated);
 		hbox26.PackStart (btnSchritt3Animated);
 
 		*/
+
+
 		AnimatedButton.setButtonsDefaultBgColor(col);
-		AnimatedButton btnPreferencesAnimated = new AnimatedButton (new Gdk.Pixbuf("images\\preferences_normal.png"),new Gdk.Pixbuf("images\\preferences_hover.png"),new Gdk.Pixbuf("images\\preferences_pressed.png"));
+		AnimatedButton btnPreferencesAnimated = new AnimatedButton (new Gdk.Pixbuf("images"+pathSeparator+"preferences_normal.png"),new Gdk.Pixbuf("images"+pathSeparator+"preferences_hover.png"),new Gdk.Pixbuf("images"+pathSeparator+"preferences_pressed.png"));
+		btnPreferencesAnimated.setXAlign (1);
 		hbox26.PackEnd (btnPreferencesAnimated);
 
 
-		AnimatedButton btnFinish = new AnimatedButton (new Gdk.Pixbuf("images\\finish_button_normal.png"),new Gdk.Pixbuf("images\\finish_button_hover.png"),new Gdk.Pixbuf("images\\finish_button_pressed.png"));
+
+		AnimatedButton btnFinish = new AnimatedButton (new Gdk.Pixbuf("images"+pathSeparator+"finish_button_normal.png"),new Gdk.Pixbuf("images"+pathSeparator+"finish_button_hover.png"),new Gdk.Pixbuf("images"+pathSeparator+"finish_button_pressed.png"));
 		btnFinish.setXAlign (1);
 		btnFinish.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
-		hbox31.PackEnd (btnFinish);
-		/*
+		hbox31.PackEnd (btnFinish,false,false,0);
+
 		imgSchritt1.Pixbuf = new Gdk.Pixbuf (null, "TestGtkGui.bin.Debug.images.Schritt1notactive.png");
 		btnFinish.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
-		table3.Resize(20,9);
-		Entry [] entries=new Entry[100];
-		for (int i = 0; i < 100; i++) {
-			entries [i] = new Entry ();
+		table3.Resize(10,9);
+		Label [] entries=new Label[100];
+		int count = 0;
+		/*
+		for (uint i = 0; i < 70; i++) {
+			entries [i] = new Label ();
 			entries [i].Show ();
 			entries [i].Text = "Entry " + i;
-			table3.Add (entries [i]);
-			//table3.Attach (entries [i], (i % 7), 0, (i / 7), 0);
+			//table3.Add (entries [i]);
+
+			Console.WriteLine(((i%7)+1) + " " +((i%7)+2) +" "+ ((i / 7)+1)+ " "+ ((i / 7)+2));
+			table3.Attach(entries [i], (i%7)+1, (i%7)+2, (i / 7)+1, (i / 7)+2);
+
+			//table3.att
 		}
 		*/
+
+		for (uint row = 1; row < 10; row++) {
+			
+
+			for(uint column=0;column<7;column++){
+
+				VBox vb = new VBox (false, 0);
+				vb.Show ();
+
+				//top border
+				HSeparator hsp1 = new HSeparator ();
+
+				hsp1.Show ();
+				HSeparator hsp2 = new HSeparator ();
+				hsp2.Show ();
+				vb.PackStart (hsp1, false, false, 0);
+
+
+				//content
+				HBox hbcontent = new HBox (false, 0);
+
+				hbcontent.Show ();
+				VSeparator vsp1 = new VSeparator ();
+				vsp1.Show ();
+				VSeparator vsp2 = new VSeparator ();
+				vsp2.Show ();
+				hbcontent.PackStart(vsp1,false,false,0); //left border
+				if (column == 6) {
+					CheckButton cbox = new CheckButton ();
+					cbox.Show ();
+					hbcontent.PackStart(cbox,true,true,5); //widget
+				} else {
+					entries [count] = new Label ();
+					entries [count].Show ();
+					entries [count].Text = "Entry " + count;
+					entries [count].Xpad = 15;
+					entries [count].Ypad = 4;
+					hbcontent.PackStart(entries[count],true,true,5); //widget
+				}
+
+
+				if (column == 6) {
+					hbcontent.PackStart (vsp2, false, false, 0); //right border
+				}
+				vb.PackStart(hbcontent,true,true,0);
+
+				if (row == 9) {
+					vb.PackStart (hsp2, false, false, 0);
+				}
+				table3.RowSpacing = 0;
+				table3.ColumnSpacing = 0;
+				table3.Attach(vb, column, column+1, row, row+1);
+				count++;
+			}
+
+		}
+
 		//fill schritt 3 table
 
+		Console.WriteLine("Childs: "+table3.Children.Length);
+
+
 		//table3.
-	
+		//fixed17.ModifyFg(StateType.Normal, new Gdk.Color(245,245,245));
+		eventbox2.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
+		eventbox3.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
+		eventbox4.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
 	}
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
@@ -214,5 +291,16 @@ public partial class MainWindow: Gtk.Window
 	protected void OnButton3Clicked (object sender, EventArgs e)
 	{
 		notebook2.PrevPage ();
+	}
+
+	protected void OnNotebook2ExposeEvent (object o, ExposeEventArgs args)
+	{
+		for (int i = 0; i < notebook2.NPages; i++) {
+			if (i == notebook2.Page) {
+				pageImages[i].Pixbuf = new Gdk.Pixbuf (null, "TestGtkGui.bin.Debug.images.Schritt"+(i+1)+"normal.png");
+			} else {
+				pageImages[i].Pixbuf = new Gdk.Pixbuf (null, "TestGtkGui.bin.Debug.images.Schritt"+(i+1)+"notactive.png");
+			}
+		}
 	}
 }

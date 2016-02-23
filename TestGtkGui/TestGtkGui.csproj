@@ -50,6 +50,9 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
+    <Reference Include="LessStupidPath">
+      <HintPath>..\packages\LessStupidPath.1.1.1.1\lib\net40\LessStupidPath.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
@@ -81,5 +84,8 @@
     <Content Include="bin\Debug\images\schritt2.png">
       <DeployService-UseProjectRelativePath>True</DeployService-UseProjectRelativePath>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
