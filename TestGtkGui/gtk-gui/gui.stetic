@@ -8,7 +8,7 @@
     <widget-library name="../bin/Debug/WG Detektiv.exe" internal="true" />
     <widget-library name="../../BoottaWidgets/bin/Debug/BoottaWidgets.dll" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="753 750">
+  <widget class="Gtk.Window" id="MainWindow" design-size="800 750">
     <property name="MemberName" />
     <property name="Title" translatable="yes">WG Detektiv</property>
     <property name="Icon">resource:TestGtkGui.bin.Debug.images.search_button_green.png</property>
@@ -150,7 +150,7 @@
               <widget class="Gtk.Notebook" id="notebook2">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
-                <property name="CurrentPage">1</property>
+                <property name="CurrentPage">0</property>
                 <signal name="SwitchPage" handler="OnNotebook2SwitchPage" />
                 <signal name="ExposeEvent" handler="OnNotebook2ExposeEvent" />
                 <child>
@@ -1105,7 +1105,7 @@ Nein</property>
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.EventBox" id="eventbox3">
+                  <widget class="Gtk.EventBox" id="eventbox7">
                     <property name="MemberName" />
                     <child>
                       <widget class="Gtk.VBox" id="vbox6">
@@ -1259,16 +1259,11 @@ Nein</property>
                                               </packing>
                                             </child>
                                             <child>
-                                              <widget class="Gtk.Entry" id="txtMinGrosse">
+                                              <widget class="BoottaWidgets.EntryWithLabel" id="txtMinGrosse">
                                                 <property name="MemberName" />
-                                                <property name="Tooltip" translatable="yes" />
-                                                <property name="CanFocus">True</property>
-                                                <property name="Text" translatable="yes">m2</property>
-                                                <property name="IsEditable">True</property>
-                                                <property name="InvisibleChar">●</property>
-                                                <property name="Xalign">1</property>
-                                                <signal name="FocusGrabbed" handler="OnTxtMinGrosseFocusGrabbed" />
-                                                <signal name="FocusOutEvent" handler="OnTxtMinGrosseFocusOutEvent" />
+                                                <property name="Events">ButtonPressMask</property>
+                                                <property name="Entrylabel">m2</property>
+                                                <property name="DisableEnterMismatchText">False</property>
                                               </widget>
                                               <packing>
                                                 <property name="Position">1</property>
@@ -1302,15 +1297,11 @@ Nein</property>
                                               </packing>
                                             </child>
                                             <child>
-                                              <widget class="Gtk.Entry" id="txtMaxMiete">
+                                              <widget class="BoottaWidgets.EntryWithLabel" id="txtMaxMiete">
                                                 <property name="MemberName" />
-                                                <property name="CanFocus">True</property>
-                                                <property name="Text" translatable="yes">€</property>
-                                                <property name="IsEditable">True</property>
-                                                <property name="InvisibleChar">●</property>
-                                                <property name="Xalign">1</property>
-                                                <signal name="FocusGrabbed" handler="OnTxtMaxMieteFocusGrabbed" />
-                                                <signal name="FocusOutEvent" handler="OnTxtMaxMieteFocusOutEvent" />
+                                                <property name="Events">ButtonPressMask</property>
+                                                <property name="Entrylabel">€</property>
+                                                <property name="DisableEnterMismatchText">False</property>
                                               </widget>
                                               <packing>
                                                 <property name="Position">1</property>
@@ -2290,7 +2281,7 @@ Nein</property>
                                 <property name="MemberName" />
                                 <property name="ShadowType">None</property>
                                 <child>
-                                  <widget class="Gtk.EventBox" id="eventbox7">
+                                  <widget class="Gtk.EventBox" id="eventbox8">
                                     <property name="MemberName" />
                                     <property name="ShowScrollbars">True</property>
                                     <child>
@@ -2552,7 +2543,7 @@ Nein</property>
               </packing>
             </child>
             <child>
-              <widget class="Gtk.EventBox" id="eventbox8">
+              <widget class="Gtk.EventBox" id="eventbox9">
                 <property name="MemberName" />
                 <child>
                   <widget class="Gtk.Statusbar" id="statusbar1">

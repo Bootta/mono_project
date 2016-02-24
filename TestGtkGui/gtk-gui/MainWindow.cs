@@ -145,7 +145,7 @@ public partial class MainWindow
 	
 	private global::Gtk.Label pgShritt1;
 	
-	private global::Gtk.EventBox eventbox3;
+	private global::Gtk.EventBox eventbox7;
 	
 	private global::Gtk.VBox vbox6;
 	
@@ -179,13 +179,13 @@ public partial class MainWindow
 	
 	private global::Gtk.Label label9;
 	
-	private global::Gtk.Entry txtMinGrosse;
+	private global::BoottaWidgets.EntryWithLabel txtMinGrosse;
 	
 	private global::Gtk.VBox vbox12;
 	
 	private global::Gtk.Label label10;
 	
-	private global::Gtk.Entry txtMaxMiete;
+	private global::BoottaWidgets.EntryWithLabel txtMaxMiete;
 	
 	private global::Gtk.HBox hbox9;
 	
@@ -339,7 +339,7 @@ public partial class MainWindow
 	
 	private global::Gtk.ScrolledWindow GtkScrolledWindow1;
 	
-	private global::Gtk.EventBox eventbox7;
+	private global::Gtk.EventBox eventbox8;
 	
 	private global::Gtk.Table table4;
 	
@@ -373,7 +373,7 @@ public partial class MainWindow
 	
 	private global::Gtk.Label pgSchritt3;
 	
-	private global::Gtk.EventBox eventbox8;
+	private global::Gtk.EventBox eventbox9;
 	
 	private global::Gtk.Statusbar statusbar1;
 
@@ -1073,9 +1073,9 @@ public partial class MainWindow
 		this.notebook2.SetTabLabel (this.eventbox4, this.pgShritt1);
 		this.pgShritt1.ShowAll ();
 		// Container child notebook2.Gtk.Notebook+NotebookChild
-		this.eventbox3 = new global::Gtk.EventBox ();
-		this.eventbox3.Name = "eventbox3";
-		// Container child eventbox3.Gtk.Container+ContainerChild
+		this.eventbox7 = new global::Gtk.EventBox ();
+		this.eventbox7.Name = "eventbox7";
+		// Container child eventbox7.Gtk.Container+ContainerChild
 		this.vbox6 = new global::Gtk.VBox ();
 		this.vbox6.Name = "vbox6";
 		// Container child vbox6.Gtk.Box+BoxChild
@@ -1198,13 +1198,11 @@ public partial class MainWindow
 		w80.Expand = false;
 		w80.Fill = false;
 		// Container child vbox11.Gtk.Box+BoxChild
-		this.txtMinGrosse = new global::Gtk.Entry ();
-		this.txtMinGrosse.CanFocus = true;
+		this.txtMinGrosse = new global::BoottaWidgets.EntryWithLabel ();
+		this.txtMinGrosse.Events = ((global::Gdk.EventMask)(256));
 		this.txtMinGrosse.Name = "txtMinGrosse";
-		this.txtMinGrosse.Text = global::Mono.Unix.Catalog.GetString ("m2");
-		this.txtMinGrosse.IsEditable = true;
-		this.txtMinGrosse.InvisibleChar = '●';
-		this.txtMinGrosse.Xalign = 1F;
+		this.txtMinGrosse.Entrylabel = "m2";
+		this.txtMinGrosse.DisableEnterMismatchText = false;
 		this.vbox11.Add (this.txtMinGrosse);
 		global::Gtk.Box.BoxChild w81 = ((global::Gtk.Box.BoxChild)(this.vbox11 [this.txtMinGrosse]));
 		w81.Position = 1;
@@ -1229,13 +1227,11 @@ public partial class MainWindow
 		w83.Expand = false;
 		w83.Fill = false;
 		// Container child vbox12.Gtk.Box+BoxChild
-		this.txtMaxMiete = new global::Gtk.Entry ();
-		this.txtMaxMiete.CanFocus = true;
+		this.txtMaxMiete = new global::BoottaWidgets.EntryWithLabel ();
+		this.txtMaxMiete.Events = ((global::Gdk.EventMask)(256));
 		this.txtMaxMiete.Name = "txtMaxMiete";
-		this.txtMaxMiete.Text = global::Mono.Unix.Catalog.GetString ("€");
-		this.txtMaxMiete.IsEditable = true;
-		this.txtMaxMiete.InvisibleChar = '●';
-		this.txtMaxMiete.Xalign = 1F;
+		this.txtMaxMiete.Entrylabel = "€";
+		this.txtMaxMiete.DisableEnterMismatchText = false;
 		this.vbox12.Add (this.txtMaxMiete);
 		global::Gtk.Box.BoxChild w84 = ((global::Gtk.Box.BoxChild)(this.vbox12 [this.txtMaxMiete]));
 		w84.Position = 1;
@@ -1922,15 +1918,15 @@ public partial class MainWindow
 		w164.Position = 2;
 		w164.Expand = false;
 		w164.Fill = false;
-		this.eventbox3.Add (this.vbox6);
-		this.notebook2.Add (this.eventbox3);
-		global::Gtk.Notebook.NotebookChild w166 = ((global::Gtk.Notebook.NotebookChild)(this.notebook2 [this.eventbox3]));
+		this.eventbox7.Add (this.vbox6);
+		this.notebook2.Add (this.eventbox7);
+		global::Gtk.Notebook.NotebookChild w166 = ((global::Gtk.Notebook.NotebookChild)(this.notebook2 [this.eventbox7]));
 		w166.Position = 1;
 		// Notebook tab
 		this.pgSchritt2 = new global::Gtk.Label ();
 		this.pgSchritt2.Name = "pgSchritt2";
 		this.pgSchritt2.LabelProp = global::Mono.Unix.Catalog.GetString ("Schritt 2");
-		this.notebook2.SetTabLabel (this.eventbox3, this.pgSchritt2);
+		this.notebook2.SetTabLabel (this.eventbox7, this.pgSchritt2);
 		this.pgSchritt2.ShowAll ();
 		// Container child notebook2.Gtk.Notebook+NotebookChild
 		this.vbox33 = new global::Gtk.VBox ();
@@ -1959,9 +1955,9 @@ public partial class MainWindow
 		global::Gtk.Viewport w168 = new global::Gtk.Viewport ();
 		w168.ShadowType = ((global::Gtk.ShadowType)(0));
 		// Container child GtkViewport2.Gtk.Container+ContainerChild
-		this.eventbox7 = new global::Gtk.EventBox ();
-		this.eventbox7.Name = "eventbox7";
-		// Container child eventbox7.Gtk.Container+ContainerChild
+		this.eventbox8 = new global::Gtk.EventBox ();
+		this.eventbox8.Name = "eventbox8";
+		// Container child eventbox8.Gtk.Container+ContainerChild
 		this.table4 = new global::Gtk.Table (((uint)(1)), ((uint)(7)), false);
 		this.table4.Name = "table4";
 		this.table4.RowSpacing = ((uint)(6));
@@ -2033,8 +2029,8 @@ public partial class MainWindow
 		w175.RightAttach = ((uint)(3));
 		w175.XOptions = ((global::Gtk.AttachOptions)(4));
 		w175.YOptions = ((global::Gtk.AttachOptions)(4));
-		this.eventbox7.Add (this.table4);
-		w168.Add (this.eventbox7);
+		this.eventbox8.Add (this.table4);
+		w168.Add (this.eventbox8);
 		this.GtkScrolledWindow1.Add (w168);
 		this.hbox32.Add (this.GtkScrolledWindow1);
 		global::Gtk.Box.BoxChild w179 = ((global::Gtk.Box.BoxChild)(this.hbox32 [this.GtkScrolledWindow1]));
@@ -2116,15 +2112,15 @@ public partial class MainWindow
 		global::Gtk.Box.BoxChild w190 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.notebook2]));
 		w190.Position = 0;
 		// Container child vbox5.Gtk.Box+BoxChild
-		this.eventbox8 = new global::Gtk.EventBox ();
-		this.eventbox8.Name = "eventbox8";
-		// Container child eventbox8.Gtk.Container+ContainerChild
+		this.eventbox9 = new global::Gtk.EventBox ();
+		this.eventbox9.Name = "eventbox9";
+		// Container child eventbox9.Gtk.Container+ContainerChild
 		this.statusbar1 = new global::Gtk.Statusbar ();
 		this.statusbar1.Name = "statusbar1";
 		this.statusbar1.Spacing = 6;
-		this.eventbox8.Add (this.statusbar1);
-		this.vbox5.Add (this.eventbox8);
-		global::Gtk.Box.BoxChild w192 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.eventbox8]));
+		this.eventbox9.Add (this.statusbar1);
+		this.vbox5.Add (this.eventbox9);
+		global::Gtk.Box.BoxChild w192 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.eventbox9]));
 		w192.Position = 1;
 		w192.Expand = false;
 		w192.Fill = false;
@@ -2135,7 +2131,7 @@ public partial class MainWindow
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
-		this.DefaultWidth = 753;
+		this.DefaultWidth = 800;
 		this.DefaultHeight = 750;
 		this.calFrom.Hide ();
 		this.calTo.Hide ();
@@ -2144,10 +2140,6 @@ public partial class MainWindow
 		this.notebook2.SwitchPage += new global::Gtk.SwitchPageHandler (this.OnNotebook2SwitchPage);
 		this.notebook2.ExposeEvent += new global::Gtk.ExposeEventHandler (this.OnNotebook2ExposeEvent);
 		this.button1.Clicked += new global::System.EventHandler (this.OnButton1Clicked);
-		this.txtMinGrosse.FocusGrabbed += new global::System.EventHandler (this.OnTxtMinGrosseFocusGrabbed);
-		this.txtMinGrosse.FocusOutEvent += new global::Gtk.FocusOutEventHandler (this.OnTxtMinGrosseFocusOutEvent);
-		this.txtMaxMiete.FocusGrabbed += new global::System.EventHandler (this.OnTxtMaxMieteFocusGrabbed);
-		this.txtMaxMiete.FocusOutEvent += new global::Gtk.FocusOutEventHandler (this.OnTxtMaxMieteFocusOutEvent);
 		this.toggleCalendarFrom.Toggled += new global::System.EventHandler (this.OnToggleCalendarFromToggled);
 		this.calFrom.DaySelected += new global::System.EventHandler (this.OnCalFromDaySelected);
 		this.calFrom.DaySelectedDoubleClick += new global::System.EventHandler (this.OnCalFromDaySelectedDoubleClick);

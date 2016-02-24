@@ -8,7 +8,7 @@
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../bin/Debug/BoottaWidgets.dll" internal="true" />
   </import>
-  <widget class="Gtk.Bin" id="BoottaWidgets.EntryWithLabel" design-size="265 25">
+  <widget class="Gtk.Bin" id="BoottaWidgets.EntryWithLabel" design-size="242 25">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>

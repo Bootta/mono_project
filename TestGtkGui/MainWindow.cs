@@ -147,12 +147,12 @@ public partial class MainWindow: Gtk.Window
 
 		//table3.
 		//fixed17.ModifyFg(StateType.Normal, new Gdk.Color(245,245,245));
-		eventbox7.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
-		eventbox7.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
+		eventbox9.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
+		eventbox9.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
 		eventbox4.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
 		eventbox5.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
 		eventbox6.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
-		eventbox8.ModifyBg(StateType.Normal,new Gdk.Color(245,245,245));
+		eventbox9.ModifyBg(StateType.Normal,new Gdk.Color(245,245,245));
 	}
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
