@@ -3,6 +3,7 @@ using Gtk;
 using TestGtkGui;
 using System.IO;
 
+
 public partial class MainWindow: Gtk.Window
 {
 	String subtitlesFontSize="14000";
@@ -50,7 +51,7 @@ public partial class MainWindow: Gtk.Window
 
 		AnimatedButton.setButtonsDefaultBgColor(col);
 		AnimatedButton btnPreferencesAnimated = new AnimatedButton (new Gdk.Pixbuf("images"+pathSeparator+"preferences_normal.png"),new Gdk.Pixbuf("images"+pathSeparator+"preferences_hover.png"),new Gdk.Pixbuf("images"+pathSeparator+"preferences_pressed.png"));
-		btnPreferencesAnimated.setXAlign (1);
+		btnPreferencesAnimated.setXAlign (0.5f);
 		hbox26.PackEnd (btnPreferencesAnimated);
 
 
@@ -62,7 +63,7 @@ public partial class MainWindow: Gtk.Window
 
 		imgSchritt1.Pixbuf = new Gdk.Pixbuf (null, "TestGtkGui.bin.Debug.images.Schritt1notactive.png");
 		btnFinish.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
-		table3.Resize(10,9);
+		table4.Resize(10,9);
 		Label [] entries=new Label[100];
 		int count = 0;
 		/*
@@ -105,8 +106,12 @@ public partial class MainWindow: Gtk.Window
 				VSeparator vsp2 = new VSeparator ();
 				vsp2.Show ();
 				hbcontent.PackStart(vsp1,false,false,0); //left border
-				if (column == 6) {
+				if (column == 0) {
 					CheckButton cbox = new CheckButton ();
+					cbox.Show ();
+					hbcontent.PackStart(cbox,true,true,5); //widget
+				}else if (column == 6) {
+					Button cbox = new Button ("Bewerben");
 					cbox.Show ();
 					hbcontent.PackStart(cbox,true,true,5); //widget
 				} else {
@@ -127,9 +132,9 @@ public partial class MainWindow: Gtk.Window
 				if (row == 9) {
 					vb.PackStart (hsp2, false, false, 0);
 				}
-				table3.RowSpacing = 0;
-				table3.ColumnSpacing = 0;
-				table3.Attach(vb, column, column+1, row, row+1);
+				table4.RowSpacing = 0;
+				table4.ColumnSpacing = 0;
+				table4.Attach(vb, column, column+1, row, row+1);
 				count++;
 			}
 
@@ -137,14 +142,17 @@ public partial class MainWindow: Gtk.Window
 
 		//fill schritt 3 table
 
-		Console.WriteLine("Childs: "+table3.Children.Length);
+		Console.WriteLine("Childs: "+table4.Children.Length);
 
 
 		//table3.
 		//fixed17.ModifyFg(StateType.Normal, new Gdk.Color(245,245,245));
-		eventbox2.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
-		eventbox3.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
+		eventbox7.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
+		eventbox7.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
 		eventbox4.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
+		eventbox5.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
+		eventbox6.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
+		eventbox8.ModifyBg(StateType.Normal,new Gdk.Color(245,245,245));
 	}
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)

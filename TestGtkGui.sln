@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestGtkGui", "TestGtkGui\TestGtkGui.csproj", "{2B660C86-0538-4A62-887C-FFCB8E85E221}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoottaWidgets", "BoottaWidgets\BoottaWidgets.csproj", "{D024748A-85F1-41F1-A470-4D584099FCAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,5 +15,9 @@ Global
 		{2B660C86-0538-4A62-887C-FFCB8E85E221}.Debug|x86.Build.0 = Debug|x86
 		{2B660C86-0538-4A62-887C-FFCB8E85E221}.Release|x86.ActiveCfg = Release|x86
 		{2B660C86-0538-4A62-887C-FFCB8E85E221}.Release|x86.Build.0 = Release|x86
+		{D024748A-85F1-41F1-A470-4D584099FCAB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D024748A-85F1-41F1-A470-4D584099FCAB}.Debug|x86.Build.0 = Debug|Any CPU
+		{D024748A-85F1-41F1-A470-4D584099FCAB}.Release|x86.ActiveCfg = Release|Any CPU
+		{D024748A-85F1-41F1-A470-4D584099FCAB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
