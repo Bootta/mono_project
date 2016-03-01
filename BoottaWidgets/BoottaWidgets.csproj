@@ -42,14 +42,16 @@
     <Compile Include="gtk-gui\generated.cs" />
     <Compile Include="EntryWithLabel.cs" />
     <Compile Include="gtk-gui\BoottaWidgets.EntryWithLabel.cs" />
+    <Compile Include="BTable.cs" />
+    <Compile Include="gtk-gui\BoottaWidgets.BTable.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
       <LogicalName>gui.stetic</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\..\..\..\..\1456250291_alert-square-red.png" />
-    <EmbeddedResource Include="..\..\..\..\..\..\..\alert16.png" />
-    <EmbeddedResource Include="..\..\..\..\..\..\..\alert20.png" />
+    <EmbeddedResource Include="..\..\..\..\..\..\1456250291_alert-square-red.png" />
+    <EmbeddedResource Include="..\..\..\..\..\..\alert16.png" />
+    <EmbeddedResource Include="..\..\..\..\..\..\alert20.png" />
   </ItemGroup>
 </Project>

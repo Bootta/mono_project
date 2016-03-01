@@ -10,17 +10,19 @@ namespace BoottaWidgets
 		
 		private global::Gtk.Table table3;
 		
-		private global::Gtk.EventBox eventbox1;
+		private global::Gtk.EventBox eventbox1EntryWithLabel;
 		
 		private global::Gtk.Entry entryText;
 		
-		private global::Gtk.EventBox eventbox2;
+		private global::Gtk.EventBox eventbox2EntryWithLabel;
 		
 		private global::Gtk.Image imgAlert;
 		
-		private global::Gtk.EventBox eventbox3;
+		private global::Gtk.EventBox eventbox3EntryWithLabel;
 		
 		private global::Gtk.Label lblMismatchMsg;
+		
+		private global::Gtk.EventBox eventboxLabel_EntryWithLabel;
 		
 		private global::Gtk.Label lblEntry;
 		
@@ -51,97 +53,102 @@ namespace BoottaWidgets
 			this.table3 = new global::Gtk.Table (((uint)(1)), ((uint)(6)), false);
 			this.table3.Name = "table3";
 			// Container child table3.Gtk.Table+TableChild
-			this.eventbox1 = new global::Gtk.EventBox ();
-			this.eventbox1.Name = "eventbox1";
-			// Container child eventbox1.Gtk.Container+ContainerChild
+			this.eventbox1EntryWithLabel = new global::Gtk.EventBox ();
+			this.eventbox1EntryWithLabel.Name = "eventbox1EntryWithLabel";
+			// Container child eventbox1EntryWithLabel.Gtk.Container+ContainerChild
 			this.entryText = new global::Gtk.Entry ();
 			this.entryText.CanFocus = true;
 			this.entryText.Name = "entryText";
 			this.entryText.IsEditable = true;
+			this.entryText.WidthChars = 20;
 			this.entryText.HasFrame = false;
 			this.entryText.InvisibleChar = '●';
-			this.eventbox1.Add (this.entryText);
-			this.table3.Add (this.eventbox1);
-			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table3 [this.eventbox1]));
+			this.eventbox1EntryWithLabel.Add (this.entryText);
+			this.table3.Add (this.eventbox1EntryWithLabel);
+			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table3 [this.eventbox1EntryWithLabel]));
 			w3.LeftAttach = ((uint)(1));
 			w3.RightAttach = ((uint)(2));
 			w3.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table3.Gtk.Table+TableChild
-			this.eventbox2 = new global::Gtk.EventBox ();
-			this.eventbox2.Name = "eventbox2";
-			// Container child eventbox2.Gtk.Container+ContainerChild
+			this.eventbox2EntryWithLabel = new global::Gtk.EventBox ();
+			this.eventbox2EntryWithLabel.Name = "eventbox2EntryWithLabel";
+			// Container child eventbox2EntryWithLabel.Gtk.Container+ContainerChild
 			this.imgAlert = new global::Gtk.Image ();
 			this.imgAlert.Name = "imgAlert";
 			this.imgAlert.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("BoottaWidgets.alert20.png");
-			this.eventbox2.Add (this.imgAlert);
-			this.table3.Add (this.eventbox2);
-			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table3 [this.eventbox2]));
+			this.eventbox2EntryWithLabel.Add (this.imgAlert);
+			this.table3.Add (this.eventbox2EntryWithLabel);
+			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table3 [this.eventbox2EntryWithLabel]));
 			w5.LeftAttach = ((uint)(3));
 			w5.RightAttach = ((uint)(4));
 			w5.XOptions = ((global::Gtk.AttachOptions)(4));
 			w5.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table3.Gtk.Table+TableChild
-			this.eventbox3 = new global::Gtk.EventBox ();
-			this.eventbox3.Name = "eventbox3";
-			// Container child eventbox3.Gtk.Container+ContainerChild
+			this.eventbox3EntryWithLabel = new global::Gtk.EventBox ();
+			this.eventbox3EntryWithLabel.Name = "eventbox3EntryWithLabel";
+			// Container child eventbox3EntryWithLabel.Gtk.Container+ContainerChild
 			this.lblMismatchMsg = new global::Gtk.Label ();
 			this.lblMismatchMsg.Name = "lblMismatchMsg";
 			this.lblMismatchMsg.LabelProp = global::Mono.Unix.Catalog.GetString ("<span size=\"7000\" background=\"#ffffff\">alert</span>");
 			this.lblMismatchMsg.UseMarkup = true;
-			this.eventbox3.Add (this.lblMismatchMsg);
-			this.table3.Add (this.eventbox3);
-			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table3 [this.eventbox3]));
+			this.eventbox3EntryWithLabel.Add (this.lblMismatchMsg);
+			this.table3.Add (this.eventbox3EntryWithLabel);
+			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table3 [this.eventbox3EntryWithLabel]));
 			w7.LeftAttach = ((uint)(2));
 			w7.RightAttach = ((uint)(3));
 			w7.XOptions = ((global::Gtk.AttachOptions)(4));
 			w7.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table3.Gtk.Table+TableChild
+			this.eventboxLabel_EntryWithLabel = new global::Gtk.EventBox ();
+			this.eventboxLabel_EntryWithLabel.Name = "eventboxLabel_EntryWithLabel";
+			// Container child eventboxLabel_EntryWithLabel.Gtk.Container+ContainerChild
 			this.lblEntry = new global::Gtk.Label ();
 			this.lblEntry.Name = "lblEntry";
 			this.lblEntry.Xpad = 3;
-			this.lblEntry.Ypad = 3;
-			this.lblEntry.LabelProp = global::Mono.Unix.Catalog.GetString ("lblEntry");
-			this.table3.Add (this.lblEntry);
-			global::Gtk.Table.TableChild w8 = ((global::Gtk.Table.TableChild)(this.table3 [this.lblEntry]));
-			w8.LeftAttach = ((uint)(4));
-			w8.RightAttach = ((uint)(5));
-			w8.XOptions = ((global::Gtk.AttachOptions)(4));
-			w8.YOptions = ((global::Gtk.AttachOptions)(4));
+			this.lblEntry.Xalign = 1F;
+			this.lblEntry.LabelProp = global::Mono.Unix.Catalog.GetString ("label");
+			this.eventboxLabel_EntryWithLabel.Add (this.lblEntry);
+			this.table3.Add (this.eventboxLabel_EntryWithLabel);
+			global::Gtk.Table.TableChild w9 = ((global::Gtk.Table.TableChild)(this.table3 [this.eventboxLabel_EntryWithLabel]));
+			w9.LeftAttach = ((uint)(4));
+			w9.RightAttach = ((uint)(5));
+			w9.XOptions = ((global::Gtk.AttachOptions)(4));
+			w9.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table3.Gtk.Table+TableChild
 			this.vseparator3 = new global::Gtk.VSeparator ();
 			this.vseparator3.Name = "vseparator3";
 			this.table3.Add (this.vseparator3);
-			global::Gtk.Table.TableChild w9 = ((global::Gtk.Table.TableChild)(this.table3 [this.vseparator3]));
-			w9.LeftAttach = ((uint)(5));
-			w9.RightAttach = ((uint)(6));
-			w9.XOptions = ((global::Gtk.AttachOptions)(4));
-			w9.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w10 = ((global::Gtk.Table.TableChild)(this.table3 [this.vseparator3]));
+			w10.LeftAttach = ((uint)(5));
+			w10.RightAttach = ((uint)(6));
+			w10.XOptions = ((global::Gtk.AttachOptions)(4));
+			w10.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table3.Gtk.Table+TableChild
 			this.vseparator4 = new global::Gtk.VSeparator ();
 			this.vseparator4.Name = "vseparator4";
 			this.table3.Add (this.vseparator4);
-			global::Gtk.Table.TableChild w10 = ((global::Gtk.Table.TableChild)(this.table3 [this.vseparator4]));
-			w10.XOptions = ((global::Gtk.AttachOptions)(4));
-			w10.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w11 = ((global::Gtk.Table.TableChild)(this.table3 [this.vseparator4]));
+			w11.XOptions = ((global::Gtk.AttachOptions)(4));
+			w11.YOptions = ((global::Gtk.AttachOptions)(4));
 			this.vbox2.Add (this.table3);
-			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.table3]));
-			w11.Position = 1;
-			w11.Expand = false;
-			w11.Fill = false;
+			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.table3]));
+			w12.Position = 1;
+			w12.Expand = false;
+			w12.Fill = false;
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.hseparator4 = new global::Gtk.HSeparator ();
 			this.hseparator4.Name = "hseparator4";
 			this.vbox2.Add (this.hseparator4);
-			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.hseparator4]));
-			w12.Position = 2;
-			w12.Expand = false;
-			w12.Fill = false;
+			global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.hseparator4]));
+			w13.Position = 2;
+			w13.Expand = false;
+			w13.Fill = false;
 			this.Add (this.vbox2);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
 			this.Hide ();
-			this.entryText.Changed += new global::System.EventHandler (this.OnEntryTextChanged);
+			this.vbox2.Realized += new global::System.EventHandler (this.OnVbox2Realized);
 			this.entryText.FocusOutEvent += new global::Gtk.FocusOutEventHandler (this.OnEntryTextFocusOutEvent);
 		}
 	}

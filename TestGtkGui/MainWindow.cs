@@ -2,7 +2,7 @@
 using Gtk;
 using TestGtkGui;
 using System.IO;
-
+using System.Collections.Generic;
 
 public partial class MainWindow: Gtk.Window
 {
@@ -10,12 +10,15 @@ public partial class MainWindow: Gtk.Window
 	String tempMaskValue="";
 	Image [] pageImages=new Image[3];
 	char pathSeparator = System.IO.Path.DirectorySeparatorChar;
+	int fonts=10;
+	AnimatedButton btnPreferencesAnimated,btnFinish;
+
 
 	public MainWindow () : base (Gtk.WindowType.Toplevel)
 	{
 		
 		//fixed13.ModifyBg (StateType.Normal, new Gdk.Color (255,255,255));
-		Build ();
+		this.Build ();
 
 		pageImages [0] = imgSchritt1;
 		pageImages [1] = imgSchritt2;
@@ -24,14 +27,18 @@ public partial class MainWindow: Gtk.Window
 		//notebook2.GetNthPage (0).Hide (); //hide first page
 		//notebook2.GetNthPage (2).Hide (); //hide third page
 		//label15.Text = "Hi";
-		Gdk.Color col = new Gdk.Color(138, 196, 74);
+		Gdk.Color col = new Gdk.Color (138, 196, 74);
 		//Gdk.Color.Parse("red", ref col);
 		this.ModifyBg (StateType.Normal, col);
 
-		lblWgDetails.Markup="<span size='"+subtitlesFontSize+"' color='green' weight='bold'>WG Details</span>";
-		lblEinzugsdatum.Markup="<span size='"+subtitlesFontSize+"' color='green' weight='bold'>Einzugsdatum</span>";
-		lblAlgemeineDaten.Markup="<span size='"+subtitlesFontSize+"' color='green' weight='bold'>Algemeine Daten</span>";
-		lblBeschaftigung.Markup="<span size='"+subtitlesFontSize+"' color='green' weight='bold'>Beschäftigung</span>";
+		lblWgDetails.Markup = "<span size='" + subtitlesFontSize + "' color='green' weight='bold'>WG Details</span>";
+		lblWgDetails.Ypad = 15;
+		lblEinzugsdatum.Markup = "<span size='" + subtitlesFontSize + "' color='green' weight='bold'>Einzugsdatum</span>";
+		lblEinzugsdatum.Ypad = 15;
+		lblAlgemeineDaten.Markup = "<span size='" + subtitlesFontSize + "' color='green' weight='bold'>Algemeine Daten</span>";
+		lblAlgemeineDaten.Ypad = 15;
+		lblBeschaftigung.Markup = "<span size='" + subtitlesFontSize + "' color='green' weight='bold'>Beschäftigung</span>";
+		lblBeschaftigung.Ypad = 15;
 		//btnPreferences.CanFocus = false;
 
 		//statusbar1.Push (1, "Ready");
@@ -49,22 +56,23 @@ public partial class MainWindow: Gtk.Window
 		*/
 
 
-		AnimatedButton.setButtonsDefaultBgColor(col);
-		AnimatedButton btnPreferencesAnimated = new AnimatedButton (new Gdk.Pixbuf("images"+pathSeparator+"preferences_normal.png"),new Gdk.Pixbuf("images"+pathSeparator+"preferences_hover.png"),new Gdk.Pixbuf("images"+pathSeparator+"preferences_pressed.png"));
+		AnimatedButton.setButtonsDefaultBgColor (col);
+		btnPreferencesAnimated = new AnimatedButton (new Gdk.Pixbuf ("images" + pathSeparator + "preferences_normal.png"), new Gdk.Pixbuf ("images" + pathSeparator + "preferences_hover.png"), new Gdk.Pixbuf ("images" + pathSeparator + "preferences_pressed.png"));
 		btnPreferencesAnimated.setXAlign (0.5f);
-		hbox26.PackEnd (btnPreferencesAnimated);
+	
+		hbox26.PackEnd (btnPreferencesAnimated, false, false, 5);
 
 
 
-		AnimatedButton btnFinish = new AnimatedButton (new Gdk.Pixbuf("images"+pathSeparator+"finish_button_normal.png"),new Gdk.Pixbuf("images"+pathSeparator+"finish_button_hover.png"),new Gdk.Pixbuf("images"+pathSeparator+"finish_button_pressed.png"));
+	    btnFinish = new AnimatedButton (new Gdk.Pixbuf ("images" + pathSeparator + "finish_button_normal_big.png"), new Gdk.Pixbuf ("images" + pathSeparator + "finish_button_hover_big.png"), new Gdk.Pixbuf ("images" + pathSeparator + "finish_button_pressed_big.png"));
 		btnFinish.setXAlign (1);
 		btnFinish.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
-		hbox31.PackEnd (btnFinish,false,false,0);
+		hbox31.PackEnd (btnFinish, false, false, 0);
 
 		imgSchritt1.Pixbuf = new Gdk.Pixbuf (null, "TestGtkGui.bin.Debug.images.Schritt1notactive.png");
 		btnFinish.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
-		table4.Resize(10,9);
-		Label [] entries=new Label[100];
+		table23.Resize (10, 9);
+		Label[] entries = new Label[100];
 		int count = 0;
 		/*
 		for (uint i = 0; i < 70; i++) {
@@ -83,7 +91,7 @@ public partial class MainWindow: Gtk.Window
 		for (uint row = 1; row < 10; row++) {
 			
 
-			for(uint column=0;column<7;column++){
+			for (uint column = 0; column < 7; column++) {
 
 				VBox vb = new VBox (false, 0);
 				vb.Show ();
@@ -105,36 +113,41 @@ public partial class MainWindow: Gtk.Window
 				vsp1.Show ();
 				VSeparator vsp2 = new VSeparator ();
 				vsp2.Show ();
-				hbcontent.PackStart(vsp1,false,false,0); //left border
+				hbcontent.PackStart (vsp1, false, false, 0); //left border
 				if (column == 0) {
 					CheckButton cbox = new CheckButton ();
 					cbox.Show ();
-					hbcontent.PackStart(cbox,true,true,5); //widget
-				}else if (column == 6) {
-					Button cbox = new Button ("Bewerben");
-					cbox.Show ();
-					hbcontent.PackStart(cbox,true,true,5); //widget
+					cbox.Xalign = 1;
+
+					cbox.ModifyBg (StateType.Normal, new Gdk.Color (77, 77, 77));
+					cbox.CanFocus = false;
+					hbcontent.PackStart (cbox, true, true, 5); //widget
+				} else if (column == 6) {
+					Button button = new Button ("Bewerben");
+					button.Show ();
+					button.CanFocus = false;
+					hbcontent.PackStart (button, true, true, 5); //widget
 				} else {
 					entries [count] = new Label ();
 					entries [count].Show ();
 					entries [count].Text = "Entry " + count;
 					entries [count].Xpad = 15;
 					entries [count].Ypad = 4;
-					hbcontent.PackStart(entries[count],true,true,5); //widget
+					hbcontent.PackStart (entries [count], true, true, 5); //widget
 				}
 
 
 				if (column == 6) {
 					hbcontent.PackStart (vsp2, false, false, 0); //right border
 				}
-				vb.PackStart(hbcontent,true,true,0);
+				vb.PackStart (hbcontent, true, true, 0);
 
 				if (row == 9) {
 					vb.PackStart (hsp2, false, false, 0);
 				}
-				table4.RowSpacing = 0;
-				table4.ColumnSpacing = 0;
-				table4.Attach(vb, column, column+1, row, row+1);
+				table23.RowSpacing = 0;
+				table23.ColumnSpacing = 0;
+				table23.Attach (vb, column, column + 1, row, row + 1);
 				count++;
 			}
 
@@ -142,17 +155,26 @@ public partial class MainWindow: Gtk.Window
 
 		//fill schritt 3 table
 
-		Console.WriteLine("Childs: "+table4.Children.Length);
+		Console.WriteLine ("Childs: " + table23.Children.Length);
 
 
 		//table3.
 		//fixed17.ModifyFg(StateType.Normal, new Gdk.Color(245,245,245));
-		eventbox9.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
-		eventbox9.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
-		eventbox4.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
-		eventbox5.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
-		eventbox6.ModifyBg(StateType.Normal,new Gdk.Color(255,255,255));
-		eventbox9.ModifyBg(StateType.Normal,new Gdk.Color(245,245,245));
+		eventbox8.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
+		eventbox7.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
+		eventbox4.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
+		eventbox5.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
+		eventbox6.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
+
+		eventbox9.ModifyBg (StateType.Normal, new Gdk.Color (245, 245, 245));
+		this.ModifyFont (Pango.FontDescription.FromString ("Courier 16"));
+		//entry2.ModifyFont(Pango.FontDescription.FromString("Courier 16"));
+		//Console.WriteLine ("Object length: " + combobox6.Cells.Length);
+		Button bttest=new Button("Test");
+		bttest.Show ();
+		btable1.insertElement (bttest, 1, 1);
+
+		//textview1.font
 	}
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
@@ -278,10 +300,10 @@ public partial class MainWindow: Gtk.Window
 	{
 		Console.WriteLine ("switch"+args.PageNum);
 		for (int i = 0; i < notebook2.NPages; i++) {
-			if (i == args.PageNum) {
-				pageImages[i].Pixbuf = new Gdk.Pixbuf (null, "TestGtkGui.bin.Debug.images.Schritt"+(i+1)+"normal.png");
+			if (i == notebook2.Page) {
+				pageImages[i].Pixbuf = new Gdk.Pixbuf (null, "TestGtkGui.bin.Debug.images.Schritt"+(i+1)+"normal_big.png").ScaleSimple(178 + ((fonts ) * 7),25 + ((fonts ) * 1),Gdk.InterpType.Bilinear);
 			} else {
-				pageImages[i].Pixbuf = new Gdk.Pixbuf (null, "TestGtkGui.bin.Debug.images.Schritt"+(i+1)+"notactive.png");
+				pageImages[i].Pixbuf = new Gdk.Pixbuf (null, "TestGtkGui.bin.Debug.images.Schritt"+(i+1)+"notactive_big.png").ScaleSimple(178 + ((fonts ) * 7),25 + ((fonts ) * 1),Gdk.InterpType.Bilinear);
 			}
 		}
 	}
@@ -305,10 +327,112 @@ public partial class MainWindow: Gtk.Window
 	{
 		for (int i = 0; i < notebook2.NPages; i++) {
 			if (i == notebook2.Page) {
-				pageImages[i].Pixbuf = new Gdk.Pixbuf (null, "TestGtkGui.bin.Debug.images.Schritt"+(i+1)+"normal.png");
+				pageImages[i].Pixbuf = new Gdk.Pixbuf (null, "TestGtkGui.bin.Debug.images.Schritt"+(i+1)+"normal_big.png").ScaleSimple(178 + ((fonts ) * 7),25 + ((fonts ) * 1),Gdk.InterpType.Bilinear);
 			} else {
-				pageImages[i].Pixbuf = new Gdk.Pixbuf (null, "TestGtkGui.bin.Debug.images.Schritt"+(i+1)+"notactive.png");
+				pageImages[i].Pixbuf = new Gdk.Pixbuf (null, "TestGtkGui.bin.Debug.images.Schritt"+(i+1)+"notactive_big.png").ScaleSimple(178 + ((fonts ) * 7),25 + ((fonts ) * 1),Gdk.InterpType.Bilinear);
 			}
 		}
 	}
+
+	protected void ResizeCheckedEvent (object sender, EventArgs e)
+	{
+		Console.WriteLine ("-f8: " + e.ToString());
+
+		foreach(object o in getAllElementsOfType (vbox4,null)){
+			Widget ow = (Widget)o;
+
+			//Console.WriteLine ("Widget name: " + ow.Name + " type: " + ow.GetType ());
+			//ow.QueueResize ();
+		}
+
+		Console.WriteLine ("size: " + vbox1.Allocation.Size.Width + " x " + vbox1.Allocation.Size.Height);
+		int s = (((vbox4.Allocation.Size.Width + vbox4.Allocation.Size.Height) / 2) / 100) ;
+		//int s=13;
+		Console.WriteLine ("SSS: " + s);
+		if (fonts != s && s>7) {
+
+			foreach (object o in getAllElementsOfType(vbox4,typeof(Label))) {
+				Widget ow = (Widget)o;
+				ow.ModifyFont (Pango.FontDescription.FromString("Arial "+s));
+				ow.QueueResize ();
+			}
+
+			foreach (object o in getAllElementsOfType(vbox4,typeof(Entry))) {
+				Widget ow = (Widget)o;
+				ow.ModifyFont (Pango.FontDescription.FromString("Arial "+s));
+				ow.QueueResize ();
+			}
+
+			foreach (object o in getAllElementsOfType(vbox4,typeof(TextView))) {
+				Widget ow = (Widget)o;
+				ow.ModifyFont (Pango.FontDescription.FromString("Arial "+(s+5)));
+				ow.QueueResize ();
+			}
+
+			foreach (object o in getAllElementsOfType(vbox4,typeof(ComboBox))) {
+				ComboBox ow = (ComboBox)o;
+				//Console.WriteLine ("Combo box: "+ow.Name);
+
+				foreach (CellRenderer obj in ow.Cells) {
+					CellRendererText crt = (CellRendererText)obj;
+					//Console.WriteLine ("Objectcbox: " + crt.Text);
+					crt.Font="Arial "+s;
+
+				}
+				//ow.Popup();
+				//ow.Popdown();
+				ow.QueueResize();
+
+			}
+
+			foreach (object o in getAllElementsOfType(vbox4,null)) {
+				Widget ow = (Widget)o;
+
+				ow.QueueResize ();
+			}
+
+			btnForward1.WidthRequest = 40 + ((s ) * 2);
+			btnForward1.HeightRequest = 40 + ((s ) * 2);
+			btnBack2.WidthRequest = 40 + ((s ) * 2);
+			btnBack2.HeightRequest = 40 + ((s ) * 2);
+			btnForward2.WidthRequest = 40 + ((s ) * 2);
+			btnForward2.HeightRequest = 40 + ((s ) * 2);
+			btnBack3.WidthRequest = 40 + ((s ) * 2);
+			btnBack3.HeightRequest = 40 + ((s ) * 2);
+			btnFinish.resizeButton (250 + ((s ) * 15),35 + ((s ) * 2)); 
+
+			for (int i = 0; i < notebook2.NPages; i++) {
+				if (i == notebook2.Page) {
+					pageImages[i].Pixbuf = new Gdk.Pixbuf (null, "TestGtkGui.bin.Debug.images.Schritt"+(i+1)+"normal_big.png").ScaleSimple(178 + ((s ) * 7),25 + ((s ) * 1),Gdk.InterpType.Bilinear);
+				} else {
+					pageImages[i].Pixbuf = new Gdk.Pixbuf (null, "TestGtkGui.bin.Debug.images.Schritt"+(i+1)+"notactive_big.png").ScaleSimple(178 + ((s ) * 7),25 + ((s ) * 1),Gdk.InterpType.Bilinear);
+				}
+			}
+
+			fonts = s;
+		}
+	}
+
+	public object[] getAllElementsOfType(Container widgetholder, Type type){
+		//widgetholder.GetType ().IsSubclassOf (Container);
+		List<object> ret=new List<object>();
+		foreach (Widget w in widgetholder.Children) {
+			//Console.WriteLine (w.Name+" is type of "+w.GetType()+" and is subclass of container= "+w.GetType().IsSubclassOf(typeof(Container)));
+			if (type == null) {
+				ret.Add (w);
+			} else {
+				//Console.WriteLine ("w type " + w.GetType () + " typecomp: " + type);
+				if ( w.GetType ().Equals(type)) {
+					ret.Add (w);
+				} 
+			}
+			if (w.GetType ().IsSubclassOf (typeof(Container))) {
+				ret.AddRange( getAllElementsOfType ((Container)w,type));
+			}
+		}
+
+
+		return ret.ToArray();
+	}
+
 }

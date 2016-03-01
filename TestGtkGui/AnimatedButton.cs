@@ -8,12 +8,16 @@ namespace TestGtkGui
 		Gdk.Pixbuf imgNormal=null;
 		Gdk.Pixbuf imgHover=null;
 		Gdk.Pixbuf imgPressed=null;
+		Gdk.Pixbuf imgNormalOrig=null;
+		Gdk.Pixbuf imgHoverOrig=null;
+		Gdk.Pixbuf imgPressedOrig=null;
 		Image img=null;
 		string lastState="";
 		Thread onReleaseThread=null;
 		ThreadStart orbStart=null;
 		bool pressed=false;
 		static Gdk.Color defaultBgColor = new Gdk.Color (255,255,255);
+		int width=0,height=0;
 
 		public static void setButtonsDefaultBgColor(Gdk.Color defbgColor){
 			defaultBgColor = defbgColor;
@@ -28,6 +32,9 @@ namespace TestGtkGui
 			this.imgNormal=normal;
 			this.imgHover=hover;
 			this.imgPressed=pressed;
+			this.imgNormalOrig=normal;
+			this.imgHoverOrig=hover;
+			this.imgPressedOrig=pressed;
 			img=new Image(this.imgNormal);
 			img.Show();
 			this.Add(img);
@@ -88,6 +95,21 @@ namespace TestGtkGui
 			orbStart = threadStartUsingMethod;
 		}
 
+		public void resizeButton(int w,int h){
+			
+
+			Gtk.Application.Invoke (delegate {
+				width=w;
+				height=h;
+				//img.SetSizeRequest (w, h);.ScaleSimple(width,height,Gdk.InterpType.Bilinear)
+				img.Pixbuf=img.Pixbuf.ScaleSimple(width,height,Gdk.InterpType.Bilinear);
+				this.imgNormal=this.imgNormalOrig.ScaleSimple(width,height,Gdk.InterpType.Bilinear);
+				this.imgHover=this.imgHoverOrig.ScaleSimple(width,height,Gdk.InterpType.Bilinear);
+				this.imgPressed=this.imgPressedOrig.ScaleSimple(width,height,Gdk.InterpType.Bilinear);
+				this.QueueResize();
+				this.QueueDraw();
+			});
+		}
 	}
 }
 

@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace BoottaWidgets
 {
-	[System.ComponentModel.Category("Bootta Widgets")]
+	[System.ComponentModel.Category("BoottaWidgets")]
 	[System.ComponentModel.ToolboxItem (true)]
 	public partial class EntryWithLabel : Gtk.Bin
 	{
@@ -15,6 +15,7 @@ namespace BoottaWidgets
 		private string mismatchMessage="";
 		private string lastValidtext="";
 		private bool onMissmatchreturnLastValidText=false;
+		private string labelText="";
 
 		public EntryWithLabel ()
 		{
@@ -23,28 +24,57 @@ namespace BoottaWidgets
 			//entryText.ModifyBg (Gtk.StateType.Normal, new Gdk.Color(80,80,255));
 			//entryText.ModifyFg (Gtk.StateType.Normal, new Gdk.Color(80,80,255));
 			//this.colorAlert();
-
-
+			if(labelText==""){
+				
+				Gtk.Application.Invoke (delegate {
+					eventboxLabel_EntryWithLabel.Visible = false;
+					eventboxLabel_EntryWithLabel.ModifyBg(Gtk.StateType.Normal,new Gdk.Color(245,245,245));
+				});
+			}
 		}
 
 
 		[GLib.Property("label")]
 		public string Entrylabel{
 			get{ return lblEntry.Text; }
-			set{ lblEntry.Text = value; }
+			set{ 
+				if (value.Length == 0) {
+					Console.WriteLine ("Empty label");
+					lblEntry.Text = "";
+					labelText = "";
+					Gtk.Application.Invoke (delegate {
+						eventboxLabel_EntryWithLabel.Visible = false;
+					});
+
+
+
+				} else {
+					Console.WriteLine ("not Empty label");
+					labelText = value;
+					lblEntry.Text = value;
+					Gtk.Application.Invoke (delegate {
+						eventboxLabel_EntryWithLabel.Visible = true;
+					});
+				}
+			
+			}
 		}
 
 		[GLib.Property("text")]
 		public string Text{
 			get{ return entryText.Text; }
 			set
-			{ 
-				if (regex.IsMatch (value)) {
-					entryText.Text = value;
-					lastValidtext = value;
+			{
+				if (regex != null) {
+					if (regex.IsMatch (value)) {
+						entryText.Text = value;
+						lastValidtext = value;
+					} else {
+						entryText.Text = "Error: pattern missmatch";
+						lastValidtext = "";
+					}
 				} else {
-					entryText.Text = "Error: pattern missmatch";
-					lastValidtext = "";
+					entryText.Text = value;
 				}
 			}
 		}
@@ -82,59 +112,43 @@ namespace BoottaWidgets
 			}
 		}
 
-			public bool DisableEnterMismatchText{
+		public bool DisableEnterMismatchText{
 			get{ return onMissmatchreturnLastValidText; }
 			set{ onMissmatchreturnLastValidText = value; }
 		}
 
 
+
 		public void colorAlert(){
 			Console.WriteLine ("Color alert");
 			entryText.ModifyBase (Gtk.StateType.Normal, alertColor);
-			eventbox1.ModifyBg (Gtk.StateType.Normal, alertColor);
-			eventbox2.ModifyBg (Gtk.StateType.Normal, alertColor);
-			eventbox3.ModifyBg (Gtk.StateType.Normal, alertColor);
+			eventbox1EntryWithLabel.ModifyBg (Gtk.StateType.Normal, alertColor);
+			eventbox2EntryWithLabel.ModifyBg (Gtk.StateType.Normal, alertColor);
+			eventbox3EntryWithLabel.ModifyBg (Gtk.StateType.Normal, alertColor);
 
-			imgAlert.ModifyBg (Gtk.StateType.Normal, alertColor);
+			//imgAlert.ModifyBg (Gtk.StateType.Normal, alertColor);
 			//imgAlert.Show ();
 			//imgAlert.Show();
 			//lblMismatchMsg.Show ();
-			eventbox2.Show();
-			eventbox3.Show ();
+			eventbox2EntryWithLabel.Visible = true;
+			eventbox3EntryWithLabel.Visible = true;
+			imgAlert.Visible = true;
+			lblMismatchMsg.Visible = true;
 
 		}
 		public void colorNormal(){
 			Console.WriteLine ("Color normal");
 			entryText.ModifyBase (Gtk.StateType.Normal, white);
-			eventbox1.ModifyBg (Gtk.StateType.Normal, white);
-			eventbox2.ModifyBg (Gtk.StateType.Normal, white);
+			eventbox1EntryWithLabel.ModifyBg (Gtk.StateType.Normal, white);
+			eventbox2EntryWithLabel.ModifyBg (Gtk.StateType.Normal, white);
+			eventbox3EntryWithLabel.ModifyBg (Gtk.StateType.Normal, white);
 			imgAlert.ModifyBg (Gtk.StateType.Normal, white);
 			//imgAlert.Hide ();
-			eventbox2.Visible = false;
-			eventbox3.Visible = false;
+			eventbox2EntryWithLabel.Visible = false;
+			eventbox3EntryWithLabel.Visible = false;
+			imgAlert.Visible = false;
+			lblMismatchMsg.Visible = false;
 		}
-
-
-
-		protected void OnEntryTextChanged (object sender, EventArgs e)
-		{
-			
-		}
-
-
-		protected void OnEventbox3Realized (object sender, EventArgs e)
-		{
-			Console.WriteLine ("realized 3");
-			eventbox3.Hide ();
-		}
-
-		protected void OnEventbox2Realized (object sender, EventArgs e)
-		{
-			Console.WriteLine ("realized 2");
-			eventbox2.Hide ();
-		}
-
-
 
 		protected void OnEntryTextFocusOutEvent (object o, Gtk.FocusOutEventArgs args)
 		{
@@ -159,6 +173,16 @@ namespace BoottaWidgets
 					lastValidtext = "";
 				}
 			}
+		}
+
+
+		protected void OnVbox2Realized (object sender, EventArgs e)
+		{
+			eventbox2EntryWithLabel.Visible = false;
+			eventbox3EntryWithLabel.Visible = false;
+			imgAlert.Visible = false;
+			lblMismatchMsg.Visible = false;
+
 		}
 	}
 }
