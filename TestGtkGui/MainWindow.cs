@@ -12,6 +12,7 @@ public partial class MainWindow: Gtk.Window
 	char pathSeparator = System.IO.Path.DirectorySeparatorChar;
 	int fonts=10;
 	AnimatedButton btnPreferencesAnimated,btnFinish;
+	List<AnimatedButton> btnsBewerben = new List<AnimatedButton> ();
 
 
 	public MainWindow () : base (Gtk.WindowType.Toplevel)
@@ -71,7 +72,8 @@ public partial class MainWindow: Gtk.Window
 
 		imgSchritt1.Pixbuf = new Gdk.Pixbuf (null, "TestGtkGui.bin.Debug.images.Schritt1notactive.png");
 		btnFinish.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
-		table23.Resize (10, 9);
+		table23.Resize (10, 7);
+		table23.Homogeneous = false;
 		Label[] entries = new Label[100];
 		int count = 0;
 		/*
@@ -123,10 +125,11 @@ public partial class MainWindow: Gtk.Window
 					cbox.CanFocus = false;
 					hbcontent.PackStart (cbox, true, true, 5); //widget
 				} else if (column == 6) {
-					Button button = new Button ("Bewerben");
-					button.Show ();
-					button.CanFocus = false;
-					hbcontent.PackStart (button, true, true, 5); //widget
+					AnimatedButton btnBewerben = new AnimatedButton (new Gdk.Pixbuf ("images" + pathSeparator + "btnBewerben_normal.png"), new Gdk.Pixbuf ("images" + pathSeparator + "btnBewerben_hover.png"), new Gdk.Pixbuf ("images" + pathSeparator + "btnBewerben_pressed.png"));
+					btnBewerben.CanFocus = false;
+					btnsBewerben.Add (btnBewerben);
+					btnBewerben.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
+					hbcontent.PackStart (btnBewerben, true, true, 0); //widget
 				} else {
 					entries [count] = new Label ();
 					entries [count].Show ();
@@ -138,6 +141,7 @@ public partial class MainWindow: Gtk.Window
 
 
 				if (column == 6) {
+					
 					hbcontent.PackStart (vsp2, false, false, 0); //right border
 				}
 				vb.PackStart (hbcontent, true, true, 0);
@@ -172,8 +176,28 @@ public partial class MainWindow: Gtk.Window
 		//Console.WriteLine ("Object length: " + combobox6.Cells.Length);
 		Button bttest=new Button("Test");
 		bttest.Show ();
-		btable1.insertElement (bttest, 1, 1);
+		Button bttest2=new Button("Test2");
+		bttest2.Show ();
+		btable1.ShowTableBorders = true;
+		btable1.insertElementBeta (bttest, 1, 1,true,false,true);
+		btable1.insertElementBeta (bttest2, 2, 2,true,true,true);
+		btable1.BackgroundColor ="#c4e4f5";
+		AnimatedButton btnBewerben2 = new AnimatedButton (new Gdk.Pixbuf ("images" + pathSeparator + "btnBewerben_normal.png"), new Gdk.Pixbuf ("images" + pathSeparator + "btnBewerben_hover.png"), new Gdk.Pixbuf ("images" + pathSeparator + "btnBewerben_pressed.png"));
+		btnBewerben2.CanFocus = false;
+		CheckButton cmitem = new CheckButton ("A");
+		CheckButton cmitem2 = new CheckButton ("B");
+		CheckButton cmitem3 = new CheckButton ("C");
+		cmitem.Show ();
+		cmitem2.Show ();
+		cmitem3.Show ();
+		btable1.insertElementBeta (cmitem, 0, 0,true,false,false);
+		btable1.insertElementBeta (cmitem2, 1, 0,true,false,true);
+		btable1.insertElementBeta (cmitem3, 2, 0,true,false,false);
 
+		//btable1.insertElement (btnBewerben2, 0, 1);
+		btnBewerben2.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
+		btable1.insertElementBeta (btnBewerben2, 0, 1,true,false,false);
+		//btable1.scr
 		//textview1.font
 	}
 

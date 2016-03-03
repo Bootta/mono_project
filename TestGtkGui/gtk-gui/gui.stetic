@@ -2138,13 +2138,26 @@ Nein</property>
                                 <property name="RightPadding">9</property>
                                 <property name="BottomPadding">5</property>
                                 <child>
-                                  <widget class="BoottaWidgets.BTable" id="btable1">
+                                  <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow3">
                                     <property name="MemberName" />
-                                    <property name="Events">ButtonPressMask</property>
-                                    <property name="NumberOfRows">3</property>
-                                    <property name="NumberOfColumns">3</property>
-                                    <property name="BackgroundColor">#ffffff</property>
-                                    <property name="ShowTableBorders">False</property>
+                                    <property name="ShadowType">In</property>
+                                    <child>
+                                      <widget class="Gtk.Viewport" id="GtkViewport1">
+                                        <property name="MemberName" />
+                                        <property name="ShadowType">None</property>
+                                        <child>
+                                          <widget class="BoottaWidgets.BTable" id="btable1">
+                                            <property name="MemberName" />
+                                            <property name="Events">ButtonPressMask</property>
+                                            <property name="ShowScrollbars">True</property>
+                                            <property name="NumberOfRows">3</property>
+                                            <property name="NumberOfColumns">3</property>
+                                            <property name="BackgroundColor">#ffffff</property>
+                                            <property name="ShowTableBorders">False</property>
+                                          </widget>
+                                        </child>
+                                      </widget>
+                                    </child>
                                   </widget>
                                 </child>
                               </widget>
