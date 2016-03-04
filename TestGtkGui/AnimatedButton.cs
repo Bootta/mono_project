@@ -17,10 +17,16 @@ namespace TestGtkGui
 		ThreadStart orbStart=null;
 		bool pressed=false;
 		static Gdk.Color defaultBgColor = new Gdk.Color (255,255,255);
+		Gdk.Color btnColor=defaultBgColor;
 		int width=0,height=0;
 
 		public static void setButtonsDefaultBgColor(Gdk.Color defbgColor){
 			defaultBgColor = defbgColor;
+		}
+
+		public void setButtonBgColor(String color){
+			Gdk.Color.Parse (color,ref btnColor);
+			this.ModifyBg (StateType.Normal, btnColor);
 		}
 
 		public void setXAlign(float xalign){

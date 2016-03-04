@@ -56,13 +56,24 @@ namespace BoottaWidgets
 			get{ return bgColor.ToString();}
 			set{ 
 				
-				Console.WriteLine ("Col {0},{1}",numberOfRows,numberOfColumns);
+				Console.WriteLine ("Col {0},{1} value: {2}",numberOfRows,numberOfColumns,value);
 				Gdk.Color.Parse (value, ref bgColor); 
 				for (int r = 0; r < numberOfRows; r++) {
 					
 					for (int c = 0; c < numberOfColumns; c++) {
 						Console.WriteLine ("color {0},{1}",numberOfRows,numberOfColumns);
 						((EventBox)tableBoxes [r,c]).ModifyBg (StateType.Normal, bgColor);
+						foreach (object o in getAllElementsOfType(tableBoxes [r,c], typeof(EventBox))) {
+							Console.WriteLine ("Colbg: " + o.ToString ());
+
+							((EventBox)o).ModifyBg (StateType.Normal, bgColor);
+
+
+							//ow.QueueResize ();
+							//o.QueueDraw ();
+
+						}
+
 					}
 				}
 			}
@@ -129,7 +140,7 @@ namespace BoottaWidgets
 			eventBoxContainer.CanFocus = false;
 
 			//eventBoxContainer.Add (w);
-			eventBoxContainer.ModifyBg (StateType.Normal, bgColor);
+			//eventBoxContainer.ModifyBg (StateType.Normal, new Gdk.Color(144,80,132));
 			VBox vbcontent = new VBox (false, 0);
 			vbcontent.Show ();
 
@@ -137,24 +148,27 @@ namespace BoottaWidgets
 			tblForExpandedCell.RowSpacing = 0;
 			tblForExpandedCell.ColumnSpacing = 0;
 			tblForExpandedCell.Show ();
-			if (expand) {
+			if (expand && !reduceToWidgetSize) {
 				eventBoxContainer.Add (tblForExpandedCell);
 				EventBox widgetbox = new EventBox ();
+				//widgetbox.VisibleWindow = true;
 				widgetbox.Show ();
+
+				//widgetbox.ModifyBg (StateType.Normal, new Gdk.Color(144,122,20));
 				widgetbox.CanFocus = false;
 				widgetbox.Add (w);
-				Fixed fixleft = new Fixed ();
+				Alignment fixleft = new Alignment(0.5f,0.5f,1,1);
 				fixleft.Show ();
-				fixleft.HasWindow = true;
-				fixleft.ModifyBg (StateType.Normal, new Gdk.Color (122,80,180));
-				Fixed fixright = new Fixed ();
-				fixright.HasWindow = true;
-				fixright.ModifyBg (StateType.Normal, new Gdk.Color (122,80,180));
+				//fixleft.HasWindow = true;
+				//fixleft.ModifyBg (StateType.Normal, bgColor);
+				Alignment fixright = new Alignment (0.5f,0.5f,1,1);
+				//fixright.HasWindow = true;
+				//fixright.ModifyBg (StateType.Normal, new Gdk.Color (122,80,180));
 				fixright.Show ();
 				tblForExpandedCell.Attach (fixleft, 0, 1, 0,1);
 				tblForExpandedCell.Attach (widgetbox, 1, 2, 0,1,AttachOptions.Fill,AttachOptions.Fill,0,0);
 				tblForExpandedCell.Attach (fixright, 2, 3, 0,1);
-				vbcontent.PackStart (eventBoxContainer, true, true, 0);
+				vbcontent.PackStart (eventBoxContainer, true, false, 0);
 			} else {
 				eventBoxContainer.Add (w);
 				vbcontent.PackStart (eventBoxContainer, true, widgetFillCell, 0);
@@ -186,9 +200,10 @@ namespace BoottaWidgets
 			EventBox vbholder = new EventBox ();
 			vbholder.Show ();
 			vbholder.ModifyBg (StateType.Normal, bgColor);
+
 			vbholder.Add (vb);
 			if (reduceToWidgetSize) {
-				tableContainer.Attach (vbholder, col, col + 1, row, row + 1, (expand?AttachOptions.Expand:AttachOptions.Fill), (expand?AttachOptions.Expand:AttachOptions.Fill), 0, 0);
+				tableContainer.Attach (vbholder, col, col + 1, row, row + 1, ((expand && !reduceToWidgetSize)?AttachOptions.Expand:AttachOptions.Fill), ((expand && !reduceToWidgetSize)?AttachOptions.Expand:AttachOptions.Fill), 0, 0);
 			} else {
 				tableContainer.Attach (vbholder, col, col + 1, row, row + 1);
 			}
@@ -248,7 +263,7 @@ namespace BoottaWidgets
 					//eventBoxContainer.ModifyBg (StateType.Normal, bgColor);
 					eventBoxContainer.CanFocus = false;
 
-					eventBoxContainer.ModifyBg (StateType.Normal, bgColor);
+					//eventBoxContainer.ModifyBg (StateType.Normal, bgColor);
 
 
 					VBox vbcontent = new VBox (false, 0);
@@ -280,7 +295,7 @@ namespace BoottaWidgets
 					tableContainer.ColumnSpacing = 0;
 					EventBox vbholder = new EventBox ();
 					vbholder.Show ();
-					vbholder.ModifyBg (StateType.Normal, bgColor);
+					//vbholder.ModifyBg (StateType.Normal, bgColor);
 					vbholder.Add (vb);
 
 					tableContainer.Attach (vbholder, column, column + 1, row, row + 1, AttachOptions.Fill, AttachOptions.Fill, 0, 0);

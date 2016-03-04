@@ -492,7 +492,7 @@ public partial class MainWindow
 		this.notebook2 = new global::Gtk.Notebook ();
 		this.notebook2.CanFocus = true;
 		this.notebook2.Name = "notebook2";
-		this.notebook2.CurrentPage = 2;
+		this.notebook2.CurrentPage = 1;
 		// Container child notebook2.Gtk.Notebook+NotebookChild
 		this.eventbox4 = new global::Gtk.EventBox ();
 		this.eventbox4.Name = "eventbox4";

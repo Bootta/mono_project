@@ -170,7 +170,7 @@ public partial class MainWindow: Gtk.Window
 		eventbox5.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
 		eventbox6.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
 
-		eventbox9.ModifyBg (StateType.Normal, new Gdk.Color (245, 245, 245));
+		eventbox9.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
 		this.ModifyFont (Pango.FontDescription.FromString ("Courier 16"));
 		//entry2.ModifyFont(Pango.FontDescription.FromString("Courier 16"));
 		//Console.WriteLine ("Object length: " + combobox6.Cells.Length);
@@ -180,8 +180,8 @@ public partial class MainWindow: Gtk.Window
 		bttest2.Show ();
 		btable1.ShowTableBorders = true;
 		btable1.insertElementBeta (bttest, 1, 1,true,false,true);
-		btable1.insertElementBeta (bttest2, 2, 2,true,true,true);
-		btable1.BackgroundColor ="#c4e4f5";
+		btable1.insertElementBeta (bttest2, 2, 2,false,true,true);
+		//btable1.BackgroundColor ="#c4e4f5";
 		AnimatedButton btnBewerben2 = new AnimatedButton (new Gdk.Pixbuf ("images" + pathSeparator + "btnBewerben_normal.png"), new Gdk.Pixbuf ("images" + pathSeparator + "btnBewerben_hover.png"), new Gdk.Pixbuf ("images" + pathSeparator + "btnBewerben_pressed.png"));
 		btnBewerben2.CanFocus = false;
 		CheckButton cmitem = new CheckButton ("A");
@@ -190,15 +190,17 @@ public partial class MainWindow: Gtk.Window
 		cmitem.Show ();
 		cmitem2.Show ();
 		cmitem3.Show ();
-		btable1.insertElementBeta (cmitem, 0, 0,true,false,false);
+		btable1.insertElementBeta (cmitem, 0, 0,true,false,true);
+		cmitem2.ModifyBg (StateType.Normal,new Gdk.Color(144,122,111));
 		btable1.insertElementBeta (cmitem2, 1, 0,true,false,true);
 		btable1.insertElementBeta (cmitem3, 2, 0,true,false,false);
 
 		//btable1.insertElement (btnBewerben2, 0, 1);
-		btnBewerben2.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
+		btnBewerben2.setButtonBgColor("#c4e4f5");
 		btable1.insertElementBeta (btnBewerben2, 0, 1,true,false,false);
 		//btable1.scr
 		//textview1.font
+		btable1.BackgroundColor ="#c4e4f5";
 	}
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)

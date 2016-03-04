@@ -156,7 +156,7 @@
               <widget class="Gtk.Notebook" id="notebook2">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
-                <property name="CurrentPage">2</property>
+                <property name="CurrentPage">1</property>
                 <signal name="SwitchPage" handler="OnNotebook2SwitchPage" />
                 <signal name="ExposeEvent" handler="OnNotebook2ExposeEvent" />
                 <child>
