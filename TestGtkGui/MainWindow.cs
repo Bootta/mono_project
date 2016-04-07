@@ -3,17 +3,21 @@ using Gtk;
 using TestGtkGui;
 using System.IO;
 using System.Collections.Generic;
+using BoottaWidgets;
 
 public partial class MainWindow: Gtk.Window
 {
 	String subtitlesFontSize="14000";
+	String subtitlesFontSizeSmall="10000";
 	String tempMaskValue="";
 	Image [] pageImages=new Image[3];
 	char pathSeparator = System.IO.Path.DirectorySeparatorChar;
 	int fonts=10;
 	AnimatedButton btnPreferencesAnimated,btnFinish;
 	List<AnimatedButton> btnsBewerben = new List<AnimatedButton> ();
-
+	BTable tblShritte3=null;
+	List<HBox> eigenschaftenSelectedList = new List<HBox> ();
+	String fontName="Segoe UI";
 
 	public MainWindow () : base (Gtk.WindowType.Toplevel)
 	{
@@ -29,17 +33,43 @@ public partial class MainWindow: Gtk.Window
 		//notebook2.GetNthPage (2).Hide (); //hide third page
 		//label15.Text = "Hi";
 		Gdk.Color col = new Gdk.Color (138, 196, 74);
+		String colString = "#8AC44A";
 		//Gdk.Color.Parse("red", ref col);
 		this.ModifyBg (StateType.Normal, col);
 
-		lblWgDetails.Markup = "<span size='" + subtitlesFontSize + "' color='green' weight='bold'>WG Details</span>";
+		ebStudium.Hide ();
+		ebAusbildung.Hide ();
+
+		lblWgDetails.Markup = "<span size='" + subtitlesFontSize + "' color='"+colString+"' weight='bold'>WG Details</span>";
 		lblWgDetails.Ypad = 15;
-		lblEinzugsdatum.Markup = "<span size='" + subtitlesFontSize + "' color='green' weight='bold'>Einzugsdatum</span>";
+		lblEinzugsdatum.Markup = "<span size='" + subtitlesFontSize + "' color='"+colString+"' weight='bold'>Einzugsdatum</span>";
 		lblEinzugsdatum.Ypad = 15;
-		lblAlgemeineDaten.Markup = "<span size='" + subtitlesFontSize + "' color='green' weight='bold'>Algemeine Daten</span>";
+		lblAlgemeineDaten.Markup = "<span size='" + subtitlesFontSize + "' color='"+colString+"' weight='bold'>Allgemeine Daten</span>";
 		lblAlgemeineDaten.Ypad = 15;
-		lblBeschaftigung.Markup = "<span size='" + subtitlesFontSize + "' color='green' weight='bold'>Beschäftigung</span>";
+		lblBeschaftigung.Markup = "<span size='" + subtitlesFontSize + "' color='"+colString+"' weight='bold'>Beschäftigung</span>";
 		lblBeschaftigung.Ypad = 15;
+		lblStudium.Markup = "<span size='" + subtitlesFontSize + "' color='"+colString+"' weight='bold'>Studium</span>";
+		lblStudium.Ypad = 15;
+		headAusbildung.Markup = "<span size='" + subtitlesFontSize + "' color='"+colString+"' weight='bold'>Ausbildung</span>";
+		headAusbildung.Ypad = 15;
+		headfEinzugsdatum.Markup = "<span size='" + subtitlesFontSize + "' color='"+colString+"' weight='bold'>frühstes Einzugsdatum</span>";
+		headfEinzugsdatum.Ypad = 15;
+		headHobbies.Markup = "<span size='" + subtitlesFontSize + "' color='"+colString+"' weight='bold'>Hobbies</span>";
+		headHobbies.Ypad = 15;
+		headFreizeit.Markup = "<span size='" + subtitlesFontSize + "' color='"+colString+"' weight='bold'>Freizeit</span>";
+		headFreizeit.Ypad = 15;
+		headWarumSuchst.Markup = "<span size='" + subtitlesFontSize + "' color='"+colString+"' weight='bold'>Warum du eine WG suchst:</span>";
+		headWarumSuchst.Ypad = 15;
+		headWGErfahrung.Markup = "<span size='" + subtitlesFontSize + "' color='"+colString+"' weight='bold'>WG Erfahrung</span>";
+		headWGErfahrung.Ypad = 15;
+		headEigenschaften.Markup = "<span size='" + subtitlesFontSize + "' color='"+colString+"' weight='bold'>Eigenschaften</span>";
+		headEigenschaften.Ypad = 15;
+		headEinkommen.Markup = "<span size='" + subtitlesFontSize + "' color='"+colString+"' weight='bold'>Einkommen</span>";
+		headEinkommen.Ypad = 15;
+		headArbeitnehmer.Markup = "<span size='" + subtitlesFontSize + "' color='"+colString+"' weight='bold'>Arbeitnehmer</span>";
+		headArbeitnehmer.Ypad = 15;
+		lblStudienbeginn.Markup = "<span size='" + subtitlesFontSizeSmall + "' color='"+colString+"' weight='bold'>Studienbeginn</span>";
+		lblStudienbeginn.Ypad = 15;
 		//btnPreferences.CanFocus = false;
 
 		//statusbar1.Push (1, "Ready");
@@ -72,8 +102,8 @@ public partial class MainWindow: Gtk.Window
 
 		imgSchritt1.Pixbuf = new Gdk.Pixbuf (null, "TestGtkGui.bin.Debug.images.Schritt1notactive.png");
 		btnFinish.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
-		table23.Resize (10, 7);
-		table23.Homogeneous = false;
+		//table23.Resize (10, 7);
+		//table23.Homogeneous = false;
 		Label[] entries = new Label[100];
 		int count = 0;
 		/*
@@ -89,81 +119,79 @@ public partial class MainWindow: Gtk.Window
 			//table3.att
 		}
 		*/
+		tblShritte3 = new BTable (10,7);
+		tblShritte3.ShowTableBorders = false;
+		tblShritte3.Show ();
+		eventbox8.Add (tblShritte3);
+
+		//tblShritte3.NumberOfRows = 10;
+		//tblShritte3.NumberOfColumns = 7;
+		tblShritte3.ShowTableBorders = true;
+		tblShritte3.BackgroundColor = "#ffffff";
+
+		Label lblAuswahl = new Label ("Auswahl");
+		Label lblMidbewohner = new Label ("Mitbewohner");
+		Label lblZimmergrosse = new Label ("Zimmergröße");
+		Label lblStadtteil = new Label ("Stadtteil");
+		Label lblFreiab = new Label ("Frei ab");
+		Label lblStatus = new Label ("Status");
+
+		lblAuswahl.Show ();
+		tblShritte3.insertElement (lblAuswahl, 0, 0, true, true, false,5);
+		lblMidbewohner.Show ();
+		tblShritte3.insertElement (lblMidbewohner, 0, 1, false, true, false,0);
+		lblZimmergrosse.Show ();
+		tblShritte3.insertElement (lblZimmergrosse, 0, 2, false, true, false,0);
+		lblStadtteil.Show ();
+		tblShritte3.insertElement (lblStadtteil, 0, 3, false, true, false,0);
+		lblFreiab.Show ();
+		tblShritte3.insertElement (lblFreiab, 0, 4, false, true, false,0);
+		lblStatus.Show ();
+		tblShritte3.insertElement (lblStatus, 0, 5, false, true, false,0);
+
 
 		for (uint row = 1; row < 10; row++) {
 			
 
 			for (uint column = 0; column < 7; column++) {
+				
 
-				VBox vb = new VBox (false, 0);
-				vb.Show ();
-
-				//top border
-				HSeparator hsp1 = new HSeparator ();
-
-				hsp1.Show ();
-				HSeparator hsp2 = new HSeparator ();
-				hsp2.Show ();
-				vb.PackStart (hsp1, false, false, 0);
-
-
-				//content
-				HBox hbcontent = new HBox (false, 0);
-
-				hbcontent.Show ();
-				VSeparator vsp1 = new VSeparator ();
-				vsp1.Show ();
-				VSeparator vsp2 = new VSeparator ();
-				vsp2.Show ();
-				hbcontent.PackStart (vsp1, false, false, 0); //left border
 				if (column == 0) {
 					CheckButton cbox = new CheckButton ();
+					cbox.Toggled += onCheckedRow;
 					cbox.Show ();
-					cbox.Xalign = 1;
-
-					cbox.ModifyBg (StateType.Normal, new Gdk.Color (77, 77, 77));
-					cbox.CanFocus = false;
-					hbcontent.PackStart (cbox, true, true, 5); //widget
-				} else if (column == 6) {
+					tblShritte3.insertElement (cbox, row, column, true, true, false,0);
+				}else if(column==6){
 					AnimatedButton btnBewerben = new AnimatedButton (new Gdk.Pixbuf ("images" + pathSeparator + "btnBewerben_normal.png"), new Gdk.Pixbuf ("images" + pathSeparator + "btnBewerben_hover.png"), new Gdk.Pixbuf ("images" + pathSeparator + "btnBewerben_pressed.png"));
-					btnBewerben.CanFocus = false;
 					btnsBewerben.Add (btnBewerben);
-					btnBewerben.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
-					hbcontent.PackStart (btnBewerben, true, true, 0); //widget
-				} else {
-					entries [count] = new Label ();
-					entries [count].Show ();
-					entries [count].Text = "Entry " + count;
-					entries [count].Xpad = 15;
-					entries [count].Ypad = 4;
-					hbcontent.PackStart (entries [count], true, true, 5); //widget
+					btnBewerben.setButtonBgColor ("#ffffff");
+					tblShritte3.insertElement (btnBewerben, row, column, true, true, false,0);
+				}else {
+					Label lbl=new Label("Entry");
+					lbl.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
+					lbl.Show ();
+					tblShritte3.insertElement (lbl, row, column, false, true, false,0);
 				}
-
-
-				if (column == 6) {
-					
-					hbcontent.PackStart (vsp2, false, false, 0); //right border
-				}
-				vb.PackStart (hbcontent, true, true, 0);
-
-				if (row == 9) {
-					vb.PackStart (hsp2, false, false, 0);
-				}
-				table23.RowSpacing = 0;
-				table23.ColumnSpacing = 0;
-				table23.Attach (vb, column, column + 1, row, row + 1);
-				count++;
 			}
 
 		}
 
 		//fill schritt 3 table
 
-		Console.WriteLine ("Childs: " + table23.Children.Length);
+		//Console.WriteLine ("Childs: " + table23.Children.Length);
 
 
 		//table3.
 		//fixed17.ModifyFg(StateType.Normal, new Gdk.Color(245,245,245));
+		ebStudium.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
+		ebAusbildung.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
+		ebEinzugsdatum.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
+		ebSports.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
+		ebFreizeit.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
+		ebEigenschaft.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
+		ebFehltEigenscahft.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
+		ebWGErfahrung.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
+		ebArbeitnehmer.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
 		eventbox8.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
 		eventbox7.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
 		eventbox4.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
@@ -171,36 +199,31 @@ public partial class MainWindow: Gtk.Window
 		eventbox6.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
 
 		eventbox9.ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
-		this.ModifyFont (Pango.FontDescription.FromString ("Courier 16"));
-		//entry2.ModifyFont(Pango.FontDescription.FromString("Courier 16"));
-		//Console.WriteLine ("Object length: " + combobox6.Cells.Length);
-		Button bttest=new Button("Test");
-		bttest.Show ();
-		Button bttest2=new Button("Test2");
-		bttest2.Show ();
-		btable1.ShowTableBorders = true;
-		btable1.insertElementBeta (bttest, 1, 1,true,false,true);
-		btable1.insertElementBeta (bttest2, 2, 2,false,true,true);
-		//btable1.BackgroundColor ="#c4e4f5";
-		AnimatedButton btnBewerben2 = new AnimatedButton (new Gdk.Pixbuf ("images" + pathSeparator + "btnBewerben_normal.png"), new Gdk.Pixbuf ("images" + pathSeparator + "btnBewerben_hover.png"), new Gdk.Pixbuf ("images" + pathSeparator + "btnBewerben_pressed.png"));
-		btnBewerben2.CanFocus = false;
-		CheckButton cmitem = new CheckButton ("A");
-		CheckButton cmitem2 = new CheckButton ("B");
-		CheckButton cmitem3 = new CheckButton ("C");
-		cmitem.Show ();
-		cmitem2.Show ();
-		cmitem3.Show ();
-		btable1.insertElementBeta (cmitem, 0, 0,true,false,true);
-		cmitem2.ModifyBg (StateType.Normal,new Gdk.Color(144,122,111));
-		btable1.insertElementBeta (cmitem2, 1, 0,true,false,true);
-		btable1.insertElementBeta (cmitem3, 2, 0,true,false,false);
+		this.ModifyFont (Pango.FontDescription.FromString (fontName + " 16"));
 
-		//btable1.insertElement (btnBewerben2, 0, 1);
-		btnBewerben2.setButtonBgColor("#c4e4f5");
-		btable1.insertElementBeta (btnBewerben2, 0, 1,true,false,false);
-		//btable1.scr
-		//textview1.font
-		btable1.BackgroundColor ="#c4e4f5";
+
+		//setting radio buttons in defaul state
+		radioStudiumNein.Activate();
+		radioStudiumNein.Activate ();
+		radioAusbuildungNein.Activate ();
+		radioWGErfahrungNein.Activate ();
+		radioArbeitnehmerNein.Activate ();
+
+	}
+
+	public  void onCheckedRow(object o, EventArgs args){
+		Widget w = (Widget)o;
+		CheckButton cb = (CheckButton)o;
+		Console.WriteLine ("Checked"+tblShritte3.getWidgetXYPosInTable(w).getX()+" "+tblShritte3.getWidgetXYPosInTable(w).getY());
+		if (cb.Active) {
+			Console.WriteLine ("Active");
+			tblShritte3.changeRowColor (tblShritte3.getWidgetXYPosInTable (w).getY (), "#f2ffe3");
+
+			//btnsBewerben [(int)tblShritte3.getWidgetXYPosInTable (w).getY ()].ModifyBg (StateType.Normal, new Gdk.Color (238,238,238));
+		} else {
+			Console.WriteLine ("Not Active");
+			tblShritte3.changeRowColor (tblShritte3.getWidgetXYPosInTable (w).getY (), "#ffffff");
+		}
 	}
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
@@ -319,7 +342,7 @@ public partial class MainWindow: Gtk.Window
 
 	protected void OnBtnForward2Clicked (object sender, EventArgs e)
 	{
-		notebook2.Page = 2;
+		notebook2.NextPage ();
 	}
 
 	protected void OnNotebook2SwitchPage (object o, SwitchPageArgs args)
@@ -334,23 +357,22 @@ public partial class MainWindow: Gtk.Window
 		}
 	}
 
-	protected void OnButton1Clicked (object sender, EventArgs e)
-	{
-		notebook2.Page = 1;
-	}
+
 
 	protected void OnBtnBack2Clicked (object sender, EventArgs e)
-	{
-		notebook2.Page = 0;
-	}
-
-	protected void OnButton3Clicked (object sender, EventArgs e)
 	{
 		notebook2.PrevPage ();
 	}
 
+
+
 	protected void OnNotebook2ExposeEvent (object o, ExposeEventArgs args)
 	{
+		int s = (((vbox4.Allocation.Size.Width + vbox4.Allocation.Size.Height) / 2) / 100) ;
+		btnFinish.resizeButton (250 + ((s ) * 15),35 + ((s ) * 2)); 
+		foreach (AnimatedButton btnBwm in btnsBewerben) {
+			btnBwm.resizeButton (70 + ((s ) * 10),30 + ((s ) * 2)); 
+		}
 		for (int i = 0; i < notebook2.NPages; i++) {
 			if (i == notebook2.Page) {
 				pageImages[i].Pixbuf = new Gdk.Pixbuf (null, "TestGtkGui.bin.Debug.images.Schritt"+(i+1)+"normal_big.png").ScaleSimple(178 + ((fonts ) * 7),25 + ((fonts ) * 1),Gdk.InterpType.Bilinear);
@@ -379,19 +401,19 @@ public partial class MainWindow: Gtk.Window
 
 			foreach (object o in getAllElementsOfType(vbox4,typeof(Label))) {
 				Widget ow = (Widget)o;
-				ow.ModifyFont (Pango.FontDescription.FromString("Arial "+s));
+				ow.ModifyFont (Pango.FontDescription.FromString(fontName + " "+s));
 				ow.QueueResize ();
 			}
 
 			foreach (object o in getAllElementsOfType(vbox4,typeof(Entry))) {
 				Widget ow = (Widget)o;
-				ow.ModifyFont (Pango.FontDescription.FromString("Arial "+s));
+				ow.ModifyFont (Pango.FontDescription.FromString(fontName + " "+s));
 				ow.QueueResize ();
 			}
 
 			foreach (object o in getAllElementsOfType(vbox4,typeof(TextView))) {
 				Widget ow = (Widget)o;
-				ow.ModifyFont (Pango.FontDescription.FromString("Arial "+(s+5)));
+				ow.ModifyFont (Pango.FontDescription.FromString(fontName + " "+(s+5)));
 				ow.QueueResize ();
 			}
 
@@ -427,6 +449,10 @@ public partial class MainWindow: Gtk.Window
 			btnBack3.HeightRequest = 40 + ((s ) * 2);
 			btnFinish.resizeButton (250 + ((s ) * 15),35 + ((s ) * 2)); 
 
+			foreach (AnimatedButton btnBwm in btnsBewerben) {
+				btnBwm.resizeButton (80 + ((s ) * 10),40 + ((s ) * 3)); 
+			}
+
 			for (int i = 0; i < notebook2.NPages; i++) {
 				if (i == notebook2.Page) {
 					pageImages[i].Pixbuf = new Gdk.Pixbuf (null, "TestGtkGui.bin.Debug.images.Schritt"+(i+1)+"normal_big.png").ScaleSimple(178 + ((s ) * 7),25 + ((s ) * 1),Gdk.InterpType.Bilinear);
@@ -461,4 +487,138 @@ public partial class MainWindow: Gtk.Window
 		return ret.ToArray();
 	}
 
+
+	protected void OnBtnForward1Clicked (object sender, EventArgs e)
+	{
+		notebook2.NextPage ();
+	}
+
+	protected void OnBtnBack3Clicked (object sender, EventArgs e)
+	{
+		notebook2.PrevPage ();
+	}
+
+
+
+	protected void OnRadioStudiumJaClicked (object sender, EventArgs e)
+	{
+		ebStudium.Show ();
+	}
+
+	protected void OnRadioStudiumNeinClicked (object sender, EventArgs e)
+	{
+		ebStudium.Hide ();
+	}
+
+	protected void OnRadioAusbildungJaClicked (object sender, EventArgs e)
+	{
+		ebAusbildung.Show ();
+	}
+
+	protected void OnRadiobutton8Clicked (object sender, EventArgs e)
+	{
+		ebAusbildung.Hide ();
+	}
+
+	protected void OnRadioStudiumNeinGroupChanged (object sender, EventArgs e)
+	{
+		Console.WriteLine ("changed group");
+	}
+
+
+	protected void OnRadioAusbildungJaToggled (object sender, EventArgs e)
+	{
+		RadioButton rb = (RadioButton)sender;
+
+		if(rb.Active){
+			ebAusbildung.Show();
+		}else{
+			ebAusbildung.Hide();
+		}
+	}
+
+	protected void OnRadioStudiumJaToggled (object sender, EventArgs e)
+	{
+		RadioButton rb = (RadioButton)sender;
+
+		if(rb.Active){
+			ebStudium.Show();
+		}else{
+			ebStudium.Hide();
+		}
+	}
+
+	protected void OnCalEinzugsdatumDaySelected (object sender, EventArgs e)
+	{
+		Calendar cal = (Calendar)sender;
+		String date = String.Format("{0:d/M/yyyy}",cal.GetDate());
+		txtEinzugsdatum.Text = date;
+
+	}
+
+	protected void OnRadioEinzugsdatumDatumToggled (object sender, EventArgs e)
+	{
+		RadioButton rb = (RadioButton)sender;
+
+		if(rb.Active){
+			tblEinzugsdatum.Show();
+			hboxEinzugsdatum.Show ();
+		}else{
+			tblEinzugsdatum.Hide();
+			hboxEinzugsdatum.Hide ();
+		}
+	}
+
+	protected void OnRadioWGErfahrungJaToggled (object sender, EventArgs e)
+	{
+		RadioButton rb = (RadioButton)sender;
+
+		if(rb.Active){
+			ebWGErfahrung.Show();
+		}else{
+			ebWGErfahrung.Hide();
+		}
+	}
+
+	protected void OnComboEigenschaftenChanged (object sender, EventArgs e)
+	{
+		ComboBox cb=(ComboBox)sender;
+		Console.WriteLine ("Changed combo "+ cb.ActiveText);
+		if (eigenschaftenSelectedList.Count < 3) {
+			EventBox eigenshaftHolder = new EventBox ();
+			HBox hb = new HBox ();
+			hb.Show ();
+			hb.PackStart (eigenshaftHolder,false,false,0);
+			Button btnx=new Button("X");
+			btnx.Show();
+			hb.PackStart (btnx,false,false,2);
+			eigenshaftHolder.Show ();
+			eigenshaftHolder.ModifyBg (StateType.Normal, new Gdk.Color (255,255,255));
+
+			Label eigenshaft = new Label (cb.ActiveText);
+			eigenshaftHolder.Add (eigenshaft);
+			eigenshaft.ModifyFont (Pango.FontDescription.FromString(fontName + " "+fonts));
+
+			eigenshaft.QueueResize ();
+			eigenshaft.Show ();
+			tblEigenschaften.Attach (hb, (uint)eigenschaftenSelectedList.Count, (uint)eigenschaftenSelectedList.Count + 1, 0, 1);
+			eigenschaftenSelectedList.Add (hb);
+			btnx.Clicked+=delegate {
+				Console.WriteLine("Label press");
+				eigenschaftenSelectedList.Remove(hb);
+				hb.Destroy();
+			};
+		}
+	}
+
+	protected void OnRadioArbeitnehmerJaToggled (object sender, EventArgs e)
+	{
+		RadioButton rb = (RadioButton)sender;
+
+		if(rb.Active){
+			ebArbeitnehmer.Show();
+		}else{
+			ebArbeitnehmer.Hide();
+		}
+	}
 }

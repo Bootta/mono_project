@@ -17,12 +17,18 @@ namespace BoottaWidgets
 		bool showTableBorders=true;
 		Gdk.Color bgColor=new Gdk.Color(255,255,255);
 		List<Separator> borders=new List<Separator>();
+		Dictionary<Widget, XYPos> wxy = new Dictionary<Widget, XYPos> ();
 
-		public BTable ()
+		/// <summary>
+		/// Initializes a new instance of the <see cref="BoottaWidgets.BTable"/> class.
+		/// </summary>
+		/// <param name="rows">Rows.</param>
+		/// <param name="cols">Cols.</param>
+		public BTable (uint rows, uint cols)
 		{
 			this.Build ();
-			numberOfRows = 3;
-			numberOfColumns=3;
+			numberOfRows = rows;
+			numberOfColumns=cols;
 			tableContainer = tblBTableWidgetContainer;
 			tableContainer.Resize (numberOfRows, numberOfColumns);
 			//Gdk.Color.Parse ("red",ref bgColor);
@@ -32,26 +38,41 @@ namespace BoottaWidgets
 
 		}
 
+		/// <summary>
+		/// Gets or sets the number of rows.
+		/// </summary>
+		/// <value>The number of rows.</value>
 		public uint NumberOfRows{
 			get{ return numberOfRows; }
 			set{ 
 				numberOfRows = value;
 				tableContainer.Resize (numberOfRows,numberOfColumns);
+				initTableBasicContent ();
 				tableContainer.QueueResize ();
 				tableContainer.QueueDraw ();
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the number of columns.
+		/// </summary>
+		/// <value>The number of columns.</value>
 		public uint NumberOfColumns{
 			get{ return numberOfColumns; }
 			set{ 
 				numberOfColumns = value;
 				tableContainer.Resize (numberOfRows,numberOfColumns);
+				initTableBasicContent ();
 				tableContainer.QueueResize ();
 				tableContainer.QueueDraw ();
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the color of the background.
+		/// Always run after all elements in table initialized!!!
+		/// </summary>
+		/// <value>The color of the background.</value>
 		public String BackgroundColor{
 			get{ return bgColor.ToString();}
 			set{ 
@@ -79,6 +100,10 @@ namespace BoottaWidgets
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets a value indicating whether this <see cref="BoottaWidgets.BTable"/> show table borders.
+		/// </summary>
+		/// <value><c>true</c> if show table borders; otherwise, <c>false</c>.</value>
 		public bool ShowTableBorders{
 			get{ return showTableBorders; }
 			set{ showTableBorders = value; 
@@ -93,14 +118,44 @@ namespace BoottaWidgets
 		}
 
 
-
-		public void insertElement(Widget w,uint row, uint col){
-			((Fixed)tableCells [row,col]).Add (w);
+		/// <summary>
+		/// Inserts the element simple(maybe not working right).
+		/// </summary>
+		/// <param name="w">The width.</param>
+		/// <param name="row">Row.</param>
+		/// <param name="col">Col.</param>
+		public void insertElementSimple(Widget w,uint row, uint col){
+			((EventBox)tableCells [row,col]).Add (w);
 			tableElements [row,col] = w;
+			wxy.Add (w, new XYPos (col, row));
 		}
 
+		/// <summary>
+		/// Gets the widget XY position in table.
+		/// </summary>
+		/// <returns>The widget XY position in table.</returns>
+		/// <param name="w">The width.</param>
+		public XYPos getWidgetXYPosInTable(Widget w){
+			if (wxy.ContainsKey (w)) {
+				XYPos ret = new XYPos (0, 0);
+				wxy.TryGetValue (w, out ret);
+				return ret;
+			} else {
+				return null;
+			}
+		}
 
-		public void insertElementBeta(Widget w,uint row, uint col,Boolean reduceToWidgetSize, Boolean expand, Boolean widgetFillCell){
+		/// <summary>
+		/// Inserts the element beta version(advanced version).
+		/// </summary>
+		/// <param name="w">The width.</param>
+		/// <param name="row">Row.</param>
+		/// <param name="col">Col.</param>
+		/// <param name="reduceToWidgetSize">If set to <c>true</c> reduce to widget size.</param>
+		/// <param name="expand">If set to <c>true</c> expand.</param>
+		/// <param name="widgetFillCell">If set to <c>true</c> widget fill cell.</param>
+		/// <param name="padding">Padding.</param>
+		public void insertElement(Widget w,uint row, uint col,Boolean reduceToWidgetSize, Boolean expand, Boolean widgetFillCell, uint padding){
 			tableBoxes [row, col].Destroy();
 			VBox vb = new VBox (false, 0);
 			vb.Show ();
@@ -128,19 +183,12 @@ namespace BoottaWidgets
 			vsp2.Visible=showTableBorders?true:false;
 			borders.Add (vsp1);
 			borders.Add (vsp2);
-
 			hbcontent.PackStart (vsp1, false, false, 0); // adding left border
-
-
 			EventBox eventBoxContainer = new EventBox ();
 	        tableCells [row,col] = eventBoxContainer;
 			eventBoxContainer.Show ();
 			eventBoxContainer.BorderWidth = 0;
-			//eventBoxContainer.ModifyBg (StateType.Normal, bgColor);
 			eventBoxContainer.CanFocus = false;
-
-			//eventBoxContainer.Add (w);
-			//eventBoxContainer.ModifyBg (StateType.Normal, new Gdk.Color(144,80,132));
 			VBox vbcontent = new VBox (false, 0);
 			vbcontent.Show ();
 
@@ -148,44 +196,26 @@ namespace BoottaWidgets
 			tblForExpandedCell.RowSpacing = 0;
 			tblForExpandedCell.ColumnSpacing = 0;
 			tblForExpandedCell.Show ();
-			if (expand && !reduceToWidgetSize) {
+			if ((expand) && !reduceToWidgetSize ) {
 				eventBoxContainer.Add (tblForExpandedCell);
 				EventBox widgetbox = new EventBox ();
-				//widgetbox.VisibleWindow = true;
 				widgetbox.Show ();
-
-				//widgetbox.ModifyBg (StateType.Normal, new Gdk.Color(144,122,20));
 				widgetbox.CanFocus = false;
 				widgetbox.Add (w);
 				Alignment fixleft = new Alignment(0.5f,0.5f,1,1);
 				fixleft.Show ();
-				//fixleft.HasWindow = true;
-				//fixleft.ModifyBg (StateType.Normal, bgColor);
 				Alignment fixright = new Alignment (0.5f,0.5f,1,1);
-				//fixright.HasWindow = true;
-				//fixright.ModifyBg (StateType.Normal, new Gdk.Color (122,80,180));
 				fixright.Show ();
 				tblForExpandedCell.Attach (fixleft, 0, 1, 0,1);
-				tblForExpandedCell.Attach (widgetbox, 1, 2, 0,1,AttachOptions.Fill,AttachOptions.Fill,0,0);
+				tblForExpandedCell.Attach (widgetbox, 1, 2, 0,1,((expand)?AttachOptions.Expand:AttachOptions.Fill),((expand)?AttachOptions.Expand:AttachOptions.Fill),0,0);
 				tblForExpandedCell.Attach (fixright, 2, 3, 0,1);
-				vbcontent.PackStart (eventBoxContainer, true, false, 0);
+				vbcontent.PackStart (eventBoxContainer, true, false, padding);
 			} else {
 				eventBoxContainer.Add (w);
-				vbcontent.PackStart (eventBoxContainer, true, widgetFillCell, 0);
+				vbcontent.PackStart (eventBoxContainer, true, widgetFillCell, padding);
 			}
-			hbcontent.PackStart (vbcontent, true, widgetFillCell, 0); //widget
+			hbcontent.PackStart (vbcontent, true, widgetFillCell, padding); //widget
 					
-			/*
-			Fixed fixedContainer = new Fixed ();
-			tableCells [row, col] = fixedContainer;
-			fixedContainer.Show ();
-			fixedContainer.BorderWidth = 0;
-			fixedContainer.HasWindow = true;
-			fixedContainer.ModifyBg(StateType.Normal, new Gdk.Color(200,100,200));
-			fixedContainer.CanFocus = false;
-
-			hbcontent.PackStart (fixedContainer, true, true, 0); //widget
-			*/
 			if (col == (numberOfColumns-1)) {
 				hbcontent.PackStart (vsp2, false, false, 0); //adding right border
 			}
@@ -203,11 +233,14 @@ namespace BoottaWidgets
 
 			vbholder.Add (vb);
 			if (reduceToWidgetSize) {
-				tableContainer.Attach (vbholder, col, col + 1, row, row + 1, ((expand && !reduceToWidgetSize)?AttachOptions.Expand:AttachOptions.Fill), ((expand && !reduceToWidgetSize)?AttachOptions.Expand:AttachOptions.Fill), 0, 0);
+				//tableContainer.Attach (vbholder, col, col + 1, row, row + 1);
+				tableContainer.Attach (vbholder, col, col + 1, row, row + 1, AttachOptions.Fill, AttachOptions.Fill, 0, 0);
 			} else {
 				tableContainer.Attach (vbholder, col, col + 1, row, row + 1);
 			}
-			//tableElements [row,col] = null;
+			tableElements [row,col] = w;
+			wxy.Add (w, new XYPos (col, row));
+
 
 			tableBoxes [row, col]=vbholder;
 
@@ -215,13 +248,28 @@ namespace BoottaWidgets
 				
 
 				tableContainer.CheckResize();
-			//tableElements [row,col] = w;
 			});
+
+
+
+			((EventBox)tableBoxes [row,col]).ModifyBg (StateType.Normal, bgColor);
+			foreach (object o in getAllElementsOfType(tableBoxes [row,col], typeof(EventBox))) {
+				Console.WriteLine ("Setting background color: " + o.ToString ());
+
+				((EventBox)o).ModifyBg (StateType.Normal, bgColor);
+
+			}
 		}
 
+		/// <summary>
+		/// Inits the content of the table.
+		/// </summary>
 		public void initTableBasicContent(){
+			
 			tableElements=new Widget[numberOfRows,numberOfColumns];
+
 			tableCells=new Widget[numberOfRows,numberOfColumns];
+
 			tableBoxes = new EventBox[numberOfRows, numberOfColumns];
 			tableContainer.Homogeneous = false;
 
@@ -240,66 +288,51 @@ namespace BoottaWidgets
 
 					borders.Add (hsp1);
 					borders.Add (hsp2);
-
 					vb.PackStart (hsp1, false, false, 0); //adding top border
 
 					//content
 					HBox hbcontent = new HBox (false, 0);
 					hbcontent.Show ();
-
 					VSeparator vsp1 = new VSeparator ();
 					vsp1.Visible=showTableBorders?true:false;
 					VSeparator vsp2 = new VSeparator ();
 					vsp2.Visible=showTableBorders?true:false;
 					borders.Add (vsp1);
 					borders.Add (vsp2);
-
 					hbcontent.PackStart (vsp1, false, false, 0); // adding left border
-
 					EventBox eventBoxContainer = new EventBox ();
 					tableCells [row,column] = eventBoxContainer;
 					eventBoxContainer.Show ();
 					eventBoxContainer.BorderWidth = 0;
-					//eventBoxContainer.ModifyBg (StateType.Normal, bgColor);
 					eventBoxContainer.CanFocus = false;
-
-					//eventBoxContainer.ModifyBg (StateType.Normal, bgColor);
-
-
 					VBox vbcontent = new VBox (false, 0);
 					vbcontent.Show ();
 
 					vbcontent.PackStart (eventBoxContainer, true, false, 0);
-					hbcontent.PackStart (vbcontent, true, false, 0); //widget
+					hbcontent.PackStart (vbcontent, true, false, 0); //insert widget to cell
 
-					/*
-					Fixed fixedContainer = new Fixed ();
-					tableCells [row, column] = fixedContainer;
-					fixedContainer.Show ();
-					fixedContainer.BorderWidth = 0;
-					fixedContainer.HasWindow = true;
-					fixedContainer.ModifyBg(StateType.Normal, new Gdk.Color(200,100,200));
-					fixedContainer.CanFocus = false;
-				
-					hbcontent.PackStart (fixedContainer, true, true, 0); //widget
-					*/
 					if (column == (numberOfColumns-1)) {
 						hbcontent.PackStart (vsp2, false, false, 0); //adding right border
 					}
+
 					vb.PackStart (hbcontent, true, true, 0);
 
 					if (row == (numberOfRows-1)) {
 						vb.PackStart (hsp2, false, false, 0);
 					}
+
 					tableContainer.RowSpacing = 0;
 					tableContainer.ColumnSpacing = 0;
 					EventBox vbholder = new EventBox ();
 					vbholder.Show ();
-					//vbholder.ModifyBg (StateType.Normal, bgColor);
 					vbholder.Add (vb);
-
 					tableContainer.Attach (vbholder, column, column + 1, row, row + 1, AttachOptions.Fill, AttachOptions.Fill, 0, 0);
 					tableElements [row,column] = null;
+
+					if (tableBoxes [row, column] != null) {
+						tableBoxes [row, column].Destroy ();
+					}
+
 					tableBoxes [row, column]=vbholder;
 
 					Gtk.Application.Invoke (delegate {
@@ -317,6 +350,12 @@ namespace BoottaWidgets
 			}
 		}
 
+		/// <summary>
+		/// Gets the type of the all elements of.
+		/// </summary>
+		/// <returns>All found elements of requested type.</returns>
+		/// <param name="widgetholder">Widgetholder(scan all Widgetholder children).</param>
+		/// <param name="type">Type.</param>
 		public object[] getAllElementsOfType(Container widgetholder, Type type){
 			//widgetholder.GetType ().IsSubclassOf (Container);
 			List<object> ret=new List<object>();
@@ -334,11 +373,50 @@ namespace BoottaWidgets
 					ret.AddRange( getAllElementsOfType ((Container)w,type));
 				}
 			}
-
-
 			return ret.ToArray();
 		}
+		/// <summary>
+		/// Changes the color of the row.
+		/// </summary>
+		/// <param name="row">Row.</param>
+		/// <param name="color">Color.</param>
+		public void changeRowColor(uint row, String color){
+			Gdk.Color rowcolor = new Gdk.Color ();
+			Gdk.Color.Parse (color,ref rowcolor);
+			Gtk.Application.Invoke (delegate {
+				
+			
+				for (uint i = 0; i < numberOfColumns; i++) {
+					((EventBox)tableBoxes [row,i]).ModifyBg (StateType.Normal, rowcolor);
+					foreach (object o in getAllElementsOfType(tableBoxes [row,i], typeof(EventBox))) {
+						Console.WriteLine ("Rowbg: " + o.ToString ());
 
+						((EventBox)o).ModifyBg (StateType.Normal, rowcolor);
+					}
+				}
+			});
+		}
+
+		/// <summary>
+		/// Helper class for storing element(widget) position in table.
+		/// </summary>
+		public class XYPos{
+			private uint x;
+			private uint y;
+		
+					public XYPos(uint x, uint y){
+						this.x=x;
+						this.y=y;
+					}
+
+			public uint getX(){
+				return x;
+			}
+
+			public uint getY(){
+				return y;
+			}
+		}
 	}
 }
 

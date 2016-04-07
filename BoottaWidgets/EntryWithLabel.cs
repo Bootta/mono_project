@@ -17,13 +17,12 @@ namespace BoottaWidgets
 		private bool onMissmatchreturnLastValidText=false;
 		private string labelText="";
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="BoottaWidgets.EntryWithLabel"/> class.
+		/// </summary>
 		public EntryWithLabel ()
 		{
 			this.Build ();
-
-			//entryText.ModifyBg (Gtk.StateType.Normal, new Gdk.Color(80,80,255));
-			//entryText.ModifyFg (Gtk.StateType.Normal, new Gdk.Color(80,80,255));
-			//this.colorAlert();
 			if(labelText==""){
 				
 				Gtk.Application.Invoke (delegate {
@@ -33,7 +32,10 @@ namespace BoottaWidgets
 			}
 		}
 
-
+		/// <summary>
+		/// Gets or sets the entry label.
+		/// </summary>
+		/// <value>The entrylabel.</value>
 		[GLib.Property("label")]
 		public string Entrylabel{
 			get{ return lblEntry.Text; }
@@ -60,6 +62,10 @@ namespace BoottaWidgets
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets entry text.
+		/// </summary>
+		/// <value>The text.</value>
 		[GLib.Property("text")]
 		public string Text{
 			get{ return entryText.Text; }
@@ -79,6 +85,10 @@ namespace BoottaWidgets
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the match regex for entry text validation.
+		/// </summary>
+		/// <value>The match regex.</value>
 		[GLib.Property("regex")]
 		public string MatchRegex{
 			get{ 
@@ -96,7 +106,11 @@ namespace BoottaWidgets
 				}
 			}
 		}
-		
+
+		/// <summary>
+		/// Gets or sets warning message in case of mismatch regex validation.
+		/// </summary>
+		/// <value>The mismatch warning message.</value>
 		[GLib.Property("MissmatchMessage")]
 		public string MismatchWarningMessage{
 			get{ return mismatchMessage; }
@@ -112,13 +126,19 @@ namespace BoottaWidgets
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets a value indicating whether disable enter text if mismatch regex validation.
+		/// </summary>
+		/// <value><c>true</c> if disable enter mismatch text; otherwise, <c>false</c>.</value>
 		public bool DisableEnterMismatchText{
 			get{ return onMissmatchreturnLastValidText; }
 			set{ onMissmatchreturnLastValidText = value; }
 		}
 
 
-
+		/// <summary>
+		/// Color entry the alert color.
+		/// </summary>
 		public void colorAlert(){
 			Console.WriteLine ("Color alert");
 			entryText.ModifyBase (Gtk.StateType.Normal, alertColor);
@@ -136,6 +156,10 @@ namespace BoottaWidgets
 			lblMismatchMsg.Visible = true;
 
 		}
+
+		/// <summary>
+		/// Color entry in the normal color.
+		/// </summary>
 		public void colorNormal(){
 			Console.WriteLine ("Color normal");
 			entryText.ModifyBase (Gtk.StateType.Normal, white);

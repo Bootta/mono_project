@@ -53,6 +53,7 @@ namespace TestGtkGui
 			orbStart=new ThreadStart(empty_run);
 			onReleaseThread=new Thread(orbStart);
 			this.ModifyBg (StateType.Normal, defaultBgColor);
+			//this.VisibleWindow = false;
 		}
 
 		protected void onEnterWidget(object o, EnterNotifyEventArgs args){
@@ -104,9 +105,11 @@ namespace TestGtkGui
 		public void resizeButton(int w,int h){
 			
 
+			Console.WriteLine ("Resize image");
 			Gtk.Application.Invoke (delegate {
 				width=w;
 				height=h;
+				img.Pixbuf = this.imgNormal;
 				//img.SetSizeRequest (w, h);.ScaleSimple(width,height,Gdk.InterpType.Bilinear)
 				img.Pixbuf=img.Pixbuf.ScaleSimple(width,height,Gdk.InterpType.Bilinear);
 				this.imgNormal=this.imgNormalOrig.ScaleSimple(width,height,Gdk.InterpType.Bilinear);
